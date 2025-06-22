@@ -10,6 +10,7 @@ const App = () => {
     <>
     <Navbar />
 
+
     <Hero title='Nowa Kolekcja Mebli Dębowych' />
 
     <HomeCollectionCards />

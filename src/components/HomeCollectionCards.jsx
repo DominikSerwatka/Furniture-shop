@@ -1,9 +1,6 @@
 import React from 'react'
-import bathroomImage from '../assets/images/bathromm.webp'
-import kitchenImage from '../assets/images/kitchen.avif'
-import livingRoomImage from '../assets/images/living_room.webp'
-import officeImage from '../assets/images/office.jpg'
 import CollectionCard from './CollectionCard'
+import spaces from '../space_categories.json'
 
 function HomeCollectionCards() {
   return (
@@ -21,59 +18,19 @@ function HomeCollectionCards() {
 
             {/* <!-- Kontener z kartami --> */}
             <div className="flex gap-6 overflow-hidden justify-center">
-
-            {/* <!-- Karta 1 --> */}
-            <CollectionCard bg='bg-grey-100'>
+                {spaces.map((space, index) => (
+                <CollectionCard key={space.id} >
                 <img
-                src={bathroomImage}
-                alt="Łazienka"
+                src={space.picture}
+                alt={space.name}
                 className="w-full h-60 object-cover rounded-t-xl"
                 />
                 <div className="p-4 text-center">
-                <h3 className="text-xl font-semibold mb-2">Łazienka</h3>
-                <a href="/lazienka" className="text-indigo-600 font-medium hover:underline">Zobacz meble</a>
-                </div>
-            </CollectionCard>
-
-            {/* <!-- Karta 2 --> */}
-            <CollectionCard>
-                <img
-                src={kitchenImage}
-                alt="Kuchnia"
-                className="w-full h-60 object-cover rounded-t-xl"
-                />
-                <div className="p-4 text-center">
-                <h3 className="text-xl font-semibold mb-2">Kuchnia</h3>
+                <h3 className="text-xl font-semibold mb-2">{space.name}</h3>
                 <a href="/kuchnia" className="text-indigo-600 font-medium hover:underline">Zobacz meble</a>
                 </div>
-            </CollectionCard>
-
-            {/* <!-- Karta 3 --> */}
-            <CollectionCard>
-                <img
-                src={livingRoomImage}
-                alt="Pokój dzienny"
-                className="w-full h-60 object-cover rounded-t-xl"
-                />
-                <div className="p-4 text-center">
-                <h3 className="text-xl font-semibold mb-2">Pokój</h3>
-                <a href="/pokoj" className="text-indigo-600 font-medium hover:underline">Zobacz meble</a>
-                </div>
-            </CollectionCard>
-
-            {/* <!-- Karta 4 --> */}
-            <CollectionCard>
-                <img
-                src={officeImage}
-                alt="Pokój dzienny"
-                className="w-full h-60 object-cover rounded-t-xl"
-                />
-                <div className="p-4 text-center">
-                <h3 className="text-xl font-semibold mb-2">Biuro</h3>
-                <a href="/pokoj" className="text-indigo-600 font-medium hover:underline">Zobacz meble</a>
-                </div>
-            </CollectionCard>
-
+                </CollectionCard>
+                ))}
             </div>
 
             {/* <!-- Strzałka prawa --> */}
