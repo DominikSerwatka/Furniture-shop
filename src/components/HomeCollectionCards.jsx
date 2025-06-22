@@ -3,6 +3,9 @@ import CollectionCard from './CollectionCard'
 import spaces from '../space_categories.json'
 
 function HomeCollectionCards() {
+
+    const spacesToShow = spaces.slice(0, 4);
+
   return (
     <>
         <section className="relative px-4 py-8 bg-gray-50">
@@ -18,7 +21,7 @@ function HomeCollectionCards() {
 
             {/* <!-- Kontener z kartami --> */}
             <div className="flex gap-6 overflow-hidden justify-center">
-                {spaces.map((space, index) => (
+                {spacesToShow.map((space, index) => (
                 <CollectionCard key={space.id} >
                 <img
                 src={space.picture}

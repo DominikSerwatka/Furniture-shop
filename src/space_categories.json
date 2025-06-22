@@ -25,5 +25,11 @@
         "name": "Biuro",
         "description": "Funkcjonalne biuro z ergonomicznym biurkiem i wygodnym krzesłem, idealne do pracy zdalnej.",
         "picture": "../assets/images/office.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Sypialnia",
+        "description": "Stylowa sypialnia z dużym łóżkiem i szafą, zapewniająca komfortowy sen.",
+        "picture": "../assets/images/bedroom.webp"
     }
 ]
