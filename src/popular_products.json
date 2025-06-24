@@ -19,5 +19,12 @@
         "price": 649,
         "description": "Praktyczna komoda z szufladami, idealna do przechowywania ubrań i innych rzeczy.",
         "picture": "../assets/images/komoda.webp"
+    },
+    {
+        "id": 4,
+        "name": "Biurko drewniane",
+        "price": 799,
+        "description": "Stylowe biurko drewniane, doskonałe do pracy i nauki.",
+        "picture": "../assets/images/biurko.jpg"
     }
 ]
