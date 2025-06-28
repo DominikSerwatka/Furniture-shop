@@ -15,7 +15,7 @@ function ProductListing({ product }) {
 
 
   return (
-        <div className="flex-1 bg-gray-50 rounded-xl shadow-lg overflow-hidden">
+        <div className="bg-gray-50 rounded-xl shadow-lg overflow-hidden">
         <img
             src={product.picture}
             alt="Szafa przesuwna"

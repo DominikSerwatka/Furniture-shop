@@ -7,7 +7,7 @@ function HomePage() {
   return (
     <>
      <Hero/>
-     {/* <HomeCollectionCards/> */}
+     <HomeCollectionCards/>
      <HomePageProductListings/>
     </>
   )
