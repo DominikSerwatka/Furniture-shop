@@ -3,15 +3,55 @@ import Hero from '../components/Hero'
 import ProductListing from '../components/ProductListing'
 import products from '../all_products.json'
 import ProductsSort from '../components/ProductsSort'
+import ProductsFilter from '../components/ProductsFilter'
 import { useState } from 'react'
 
 function ProductsPage() {
 
     const [sortOrder, setSortOrder] = useState('default');
 
+    const defaultFilterSettings = {
+        materials: [],
+        space: [],
+        collection: [],
+    };
+
+    const [filterSettings, setFilterSettings] = useState(defaultFilterSettings);
+
+    const handleFilterChange = (category, value) => {
+        setFilterSettings(prev => {
+            const currentValues = prev[category];
+            const newValues = currentValues.includes(value) ? currentValues.filter(v => v !== value) : [...currentValues, value];
+            return {
+                ...prev,
+                [category]: newValues,
+            }
+        })
+    };
+        
+
     const handleSortChange = (value) => setSortOrder(value); 
 
-    const sortProducts = sortOrder != 'default' ? [...products].sort((a, b) => {
+    const filteredProducts = filterSettings != defaultFilterSettings ? [...products].filter((product) => {
+        let matches = true;
+
+        if (filterSettings.materials.length > 0) {
+            matches = matches && filterSettings.materials.includes(product.material);
+        }
+
+        if (filterSettings.space.length > 0) {
+            matches = matches && filterSettings.space.includes(product.space);
+        }
+
+        if (filterSettings.collection.length > 0) {
+            matches = matches && filterSettings.collection.includes(product.collection);
+        }
+
+        return matches;
+
+    }) : products;
+
+    const sortProducts = sortOrder != 'default' ? [...filteredProducts].sort((a, b) => {
         console.log(sortOrder);
         if (sortOrder == 'price-asc') {
             return a.price - b.price;
@@ -20,7 +60,7 @@ function ProductsPage() {
         } else {
             return 0;
         }
-    }) : products;
+    }) : filteredProducts;
 
 
 
@@ -31,64 +71,7 @@ function ProductsPage() {
 
                 <aside className="shrink-0 bg-white p-4">
                 <ProductsSort value={sortOrder} onSortChange={handleSortChange}/>
-
-                <h2 className="text-xl font-bold mb-6">Filtry</h2>
-
-                <div className="mb-6">
-                    <h3 className="font-semibold mb-2">Materiał</h3>
-                    <ul className="space-y-1 text-gray-700 text-sm">
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-wood" className="h-4 w-4"/>
-                            <label htmlFor="mat-wood">Drewno</label>
-                        </li>
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-metal" className="h-4 w-4"/>
-                            <label htmlFor="mat-metal">Metal</label>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className="mb-6">
-                    <h3 className="font-semibold mb-2">Pomieszczenie</h3>
-                    <ul className="space-y-1 text-gray-700 text-sm">
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-room" className="h-4 w-4"/>
-                            <label htmlFor="mat-room">Pokój</label>
-                        </li>
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-kitchen" className="h-4 w-4"/>
-                            <label htmlFor="mat-kitchen">Kuchnia</label>
-                        </li>
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-bathroom" className="h-4 w-4"/>
-                            <label htmlFor="mat-bathroom">Łazienka</label>
-                        </li>
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-office" className="h-4 w-4"/>
-                            <label htmlFor="mat-office">Biuro</label>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 className="font-semibold mb-2">Kolekcje</h3>
-                    <ul className="space-y-1 text-gray-700 text-sm">
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-popular" className="h-4 w-4"/>
-                            <label htmlFor="mat-popular">Popularne</label>
-                        </li>
-                        <li className="flex itmes-center gap-4">
-                            <input type="checkbox" id="mat-new" className="h-4 w-4"/>
-                            <label htmlFor="mat-new">Nowa kolekcja</label>
-                        </li>
-                    </ul>
-                </div>
-                <div className="mb-2 py-3">
-                <button
-                    className="bg-white text-black font-semibold px-6 py-2 rounded-md hover:bg-gray-200 border border-black transition">
-                    Zastosuj filtry
-                </button>
-                </div>
+                <ProductsFilter value={ filterSettings } onFilterChange={ handleFilterChange }/>
                 </aside>
 
                 <div className="flex-1 min-w-0 bg-white p-4">
