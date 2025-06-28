@@ -2,6 +2,7 @@ import React from 'react'
 import CollectionCard from './CollectionCard'
 import spaces from '../space_categories.json'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function HomeCollectionCards() {
 
@@ -46,7 +47,7 @@ function HomeCollectionCards() {
                 />
                 <div className="p-4 text-center">
                 <h3 className="text-xl font-semibold mb-2">{space.name}</h3>
-                <a href="/kuchnia" className="text-indigo-600 font-medium hover:underline">Zobacz meble</a>
+                <Link defaultSpacesToShowIndices="/kuchnia" className="text-indigo-600 font-medium hover:underline">Zobacz meble</Link>
                 </div>
                 </CollectionCard>
                 ))}

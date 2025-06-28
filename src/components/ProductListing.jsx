@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 function ProductListing({ product }) {
 
@@ -14,7 +15,7 @@ function ProductListing({ product }) {
 
 
   return (
-        <div className="bg-gray-50 rounded-xl shadow-lg overflow-hidden">
+        <div className="flex-1 bg-gray-50 rounded-xl shadow-lg overflow-hidden">
         <img
             src={product.picture}
             alt="Szafa przesuwna"
@@ -25,12 +26,12 @@ function ProductListing({ product }) {
             <p className="text-gray-600 mb-1">{description}</p>
             <button onClick={ () => setShowFullDescription((prevState) => !prevState) } className="text-gray-600 my-1 hover:text-black">{ showFullDescription ? 'Less' : 'More'}</button>
             <span className="block text-lg font-bold text-indigo-600 mb-2">{product.price}</span>
-            <a
-            href={`/product/${product.id}`}
+            <Link
+            to={`/product/${product.id}`}
             className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
             >
             Zobacz produkt
-            </a>
+            </Link>
         </div>
         </div>
   )

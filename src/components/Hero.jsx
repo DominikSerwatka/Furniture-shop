@@ -8,7 +8,7 @@ function Hero({ title = 'Nowa Kolekcja Mebli', subtitle = 'Odkryj naszą najnows
       className="relative h-[70vh] bg-cover bg-center flex items-center justify-center"
       style={{ backgroundImage: `url(${backgroundImage})` }}>
           {/* <!-- Treść hero --> */}
-          <div className="ml-80 relative z-10 max-w-xs text-center text-black p-12 bg-white rounded-xl">
+          <div className="relative z-10 max-w-xs text-center text-black p-12 bg-white rounded-xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
             <p className="text-lg md:text-xl mb-6">
               {subtitle}

@@ -181,3 +181,15 @@
         </div>
       </div>
     </section>
+
+
+
+
+    (
+    <>
+    <Navbar />
+    <Hero title='Nowa Kolekcja Mebli Dębowych' />
+    <HomeCollectionCards />
+    <HomePageProductListings />
+    </>
+  )

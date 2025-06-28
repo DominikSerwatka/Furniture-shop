@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
@@ -9,57 +10,57 @@ function Navbar() {
             <div className="flex h-20 items-center justify-between">
 
             <div>
-                <a className="flex flex-shrink-0 items-center mr-4" href="/index.html">
+                <Link className="flex flex-shrink-0 items-center mr-4" to="/">
                 <span className="hidden md:block text-black text-2xl font-bold ml-2"
                     >Meble</span
                 >
-                </a>
+                </Link>
             </div>  
 
             <div className="flex space-x-4">
-                <a
-                href="/index.html"
+                <Link
+                to="/"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >Home</a
+                >Home</Link
                 >
-                <a
-                href="/search.html"
+                <Link
+                to="/products"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >Produkty</a
+                >Produkty</Link
                 >
-                <a
-                href="/add-job.html"
+                <Link
+                to="/add-job.html"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >Galeria</a
+                >Galeria</Link
                 >
-                <a
-                href="/add-job.html"
+                <Link
+                to="/add-job.html"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >O nas</a
+                >O nas</Link
             >
             </div>
 
             <div className="flex space-x-4">
-                <a
-                href="/add-job"
+                <Link
+                to="/add-job"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                 ><i className="fa-regular fa-user"></i>
-                </a>
-                <a
-                href="/add-job"
+                </Link>
+                <Link
+                to="/add-job"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                 ><i className="fa-solid fa-magnifying-glass"></i>
-                </a>
-                <a
-                href="/add-job"
+                </Link>
+                <Link
+                to="/add-job"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                 ><i className="fa-regular fa-heart"></i>
-                </a>
-                <a
-                href="/shop_cart.html"
+                </Link>
+                <Link
+                to="/shop_cart.html"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                 ><i className="fa-solid fa-cart-shopping"></i>
-                </a> 
+                </Link> 
             </div>
     
             </div>
