@@ -11,7 +11,7 @@ function ProductsPage() {
     const [sortOrder, setSortOrder] = useState('default');
 
     const defaultFilterSettings = {
-        materials: [],
+        material: [],
         space: [],
         collection: [],
     };
@@ -35,8 +35,8 @@ function ProductsPage() {
     const filteredProducts = filterSettings != defaultFilterSettings ? [...products].filter((product) => {
         let matches = true;
 
-        if (filterSettings.materials.length > 0) {
-            matches = matches && filterSettings.materials.includes(product.material);
+        if (filterSettings.material.length > 0) {
+            matches = matches && filterSettings.material.includes(product.material);
         }
 
         if (filterSettings.space.length > 0) {
