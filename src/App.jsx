@@ -4,12 +4,14 @@ import HomePage from './pages/HomePage';
 import MainLayout from './layouts/MainLayout';  
 import ProductsPage from './pages/ProductsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ShopCartPage from './pages/ShopCartPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
   <Route path='/' element={<MainLayout/>}>
     <Route index element={ <HomePage/> }/>
     <Route path='/products' element={ <ProductsPage/> }/>
+    <Route path='/shop-cart' element={ <ShopCartPage/>}/>
     <Route path='*' element={ <NotFoundPage/> }/>
   </Route>
   )

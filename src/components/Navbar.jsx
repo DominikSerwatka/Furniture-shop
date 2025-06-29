@@ -57,7 +57,7 @@ function Navbar() {
                 ><i className="fa-regular fa-heart"></i>
                 </Link>
                 <Link
-                to="/shop_cart.html"
+                to="/shop-cart"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                 ><i className="fa-solid fa-cart-shopping"></i>
                 </Link> 
