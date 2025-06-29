@@ -1,12 +1,29 @@
 import React from 'react'
-import Hero from '../components/Hero'
 import ProductListing from '../components/ProductListing'
-import products from '../all_products.json'
 import ProductsSort from '../components/ProductsSort'
 import ProductsFilter from '../components/ProductsFilter'
-import { useState } from 'react'
+import Spinner from '../components/Spinner'
+import { useState, useEffect } from 'react'
 
 function ProductsPage() {
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect( () => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch('api/products');
+                const data = await res.json();
+                setProducts(data);
+            } catch (error) {
+                console.log('Error fetching products:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchProducts();
+    }, []);
 
     const [sortOrder, setSortOrder] = useState('default');
 
@@ -75,12 +92,15 @@ function ProductsPage() {
                 </aside>
 
                 <div className="flex-1 min-w-0 bg-white p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">                        
-                        {sortProducts.map((product) => 
-                        <ProductListing key={product.id} product={product}/>)}
-                    </div>
+                        { loading ? (<Spinner loading={loading}/>) : (
+                        <>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                                {sortProducts.map((product) => 
+                                <ProductListing key={product.id} product={product}/>)}
+                            </div>
+                        </>)}                        
                 </div>
-                
+    
             </div>
         </section>
     </>

@@ -1,4 +1,5 @@
-[
+{
+    "products": [
     {
         "id": 1,
         "name": "Szafa przesuwna",
@@ -79,4 +80,6 @@
         "space": "pokoj",
         "collection": "nowa-kolekcja"
     }
-]
+    ]  
+}
+
