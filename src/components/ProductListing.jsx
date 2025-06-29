@@ -27,7 +27,7 @@ function ProductListing({ product }) {
             <button onClick={ () => setShowFullDescription((prevState) => !prevState) } className="text-gray-600 my-1 hover:text-black">{ showFullDescription ? 'Less' : 'More'}</button>
             <span className="block text-lg font-bold text-indigo-600 mb-2">{product.price}</span>
             <Link
-            to={`/product/${product.id}`}
+            to={`/products/${product.id}`}
             className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
             >
             Zobacz produkt
