@@ -69,7 +69,7 @@ function ProductsPage() {
     }) : products;
 
     const sortProducts = sortOrder != 'default' ? [...filteredProducts].sort((a, b) => {
-        console.log(sortOrder);
+        // console.log(sortOrder);
         if (sortOrder == 'price-asc') {
             return a.price - b.price;
         } else if (sortOrder == 'price-desc') {

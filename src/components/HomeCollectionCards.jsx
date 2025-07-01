@@ -12,7 +12,7 @@ function HomeCollectionCards() {
 
     const [spacesToShowIndices, setSpacesToShow] = useState(defaultSpacesToShowIndices);
 
-    console.log(spacesToShowIndices);
+    // console.log(spacesToShowIndices);
     spacesToShow = spaces.slice(spacesToShowIndices[0], spacesToShowIndices[1]);
 
 
@@ -47,7 +47,7 @@ function HomeCollectionCards() {
                 />
                 <div className="p-4 text-center">
                 <h3 className="text-xl font-semibold mb-2">{space.name}</h3>
-                <Link defaultSpacesToShowIndices="/kuchnia" className="text-indigo-600 font-medium hover:underline">Zobacz meble</Link>
+                <Link to="/kuchnia" className="text-indigo-600 font-medium hover:underline">Zobacz meble</Link>
                 </div>
                 </CollectionCard>
                 ))}
