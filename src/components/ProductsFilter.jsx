@@ -1,16 +1,16 @@
 import React from 'react'
-import ProductsFilterGroupe from './ProductsFilterGroupe'
+import ProductsFilterGroup from './ProductsFilterGroup'
 
-function ProductsFilter({ value, onFilterChange }) {
+function ProductsFilter({ searchParams, setSearchParams }) {
   return (
     <>
         <h2 className="text-xl font-bold mb-6">Filtry</h2>
+        
+        <ProductsFilterGroup value={searchParams} category="material" options={['drewno', 'metal']} name="Materiał" setSearchParams={setSearchParams}/>
 
-        <ProductsFilterGroupe value={value} onFilterChange={onFilterChange} category="material" options={['drewno', 'metal']} name="Materiał"/>
+        <ProductsFilterGroup value={searchParams} category="space" options={['pokoj', 'kuchnia', 'lazienka']} name="Pomieszczenie" setSearchParams={setSearchParams}/>
 
-        <ProductsFilterGroupe value={value} onFilterChange={onFilterChange} category="space" options={['pokoj', 'kuchnia', 'lazienka', 'biuro']} name="Pomieszczenie"/>
-
-        <ProductsFilterGroupe value={value} onFilterChange={onFilterChange} category="collection" options={['popularne', 'nowa-kolekcja']} name="Kolekcje"/>
+        <ProductsFilterGroup value={searchParams} category="collection" options={['popularne', 'nowa-kolekcja']} name="Kolekcje" setSearchParams={setSearchParams}/>
 
         <div className="mb-2 py-3">
             <button

@@ -4,18 +4,25 @@ import ProductsSort from '../components/ProductsSort'
 import ProductsFilter from '../components/ProductsFilter'
 import Spinner from '../components/Spinner'
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 function ProductsPage() {
 
+    const [searchParams, setSearchParams] = useSearchParams();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect( () => {
         const fetchProducts = async () => {
             try {
-                const res = await fetch('api/products');
+                var url = 'api/products';
+                searchParams.forEach((value, key) => {
+                    url += (url.includes('?') ? '&' : '?') + `${key}=${value}`;
+                })
+                const res = await fetch(url);
                 const data = await res.json();
                 setProducts(data);
+                console.log('Fetched products:', data);
             } catch (error) {
                 console.log('Error fetching products:', error);
             } finally {
@@ -23,53 +30,13 @@ function ProductsPage() {
             }
         }
         fetchProducts();
-    }, []);
+    }, [searchParams]);
 
-    const [sortOrder, setSortOrder] = useState('default');
-
-    const defaultFilterSettings = {
-        material: [],
-        space: [],
-        collection: [],
-    };
-
-    const [filterSettings, setFilterSettings] = useState(defaultFilterSettings);
-
-    const handleFilterChange = (category, value) => {
-        setFilterSettings(prev => {
-            const currentValues = prev[category];
-            const newValues = currentValues.includes(value) ? currentValues.filter(v => v !== value) : [...currentValues, value];
-            return {
-                ...prev,
-                [category]: newValues,
-            }
-        })
-    };
-        
+    const [sortOrder, setSortOrder] = useState('default');        
 
     const handleSortChange = (value) => setSortOrder(value); 
 
-    const filteredProducts = filterSettings != defaultFilterSettings ? [...products].filter((product) => {
-        let matches = true;
-
-        if (filterSettings.material.length > 0) {
-            matches = matches && filterSettings.material.includes(product.material);
-        }
-
-        if (filterSettings.space.length > 0) {
-            matches = matches && filterSettings.space.includes(product.space);
-        }
-
-        if (filterSettings.collection.length > 0) {
-            matches = matches && filterSettings.collection.includes(product.collection);
-        }
-
-        return matches;
-
-    }) : products;
-
-    const sortProducts = sortOrder != 'default' ? [...filteredProducts].sort((a, b) => {
-        // console.log(sortOrder);
+    const sortProducts = sortOrder != 'default' ? [...products].sort((a, b) => {
         if (sortOrder == 'price-asc') {
             return a.price - b.price;
         } else if (sortOrder == 'price-desc') {
@@ -77,8 +44,7 @@ function ProductsPage() {
         } else {
             return 0;
         }
-    }) : filteredProducts;
-
+    }) : products;
 
 
   return (
@@ -88,7 +54,7 @@ function ProductsPage() {
 
                 <aside className="shrink-0 bg-white p-4">
                 <ProductsSort value={sortOrder} onSortChange={handleSortChange}/>
-                <ProductsFilter value={ filterSettings } onFilterChange={ handleFilterChange }/>
+                <ProductsFilter searchParams={searchParams} setSearchParams={setSearchParams}/>
                 </aside>
 
                 <div className="flex-1 min-w-0 bg-white p-4">

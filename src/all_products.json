@@ -17,7 +17,7 @@
         "description": "Stylowe biurko drewniane, doskonałe do pracy i nauki.",
         "picture": "../assets/images/biurko.jpg",
         "material": "drewno",
-        "space": "pokoj",
+        "space": "biuro",
         "collection": "popularne"
     },
     {
@@ -37,7 +37,7 @@
         "description": "Stylowe biurko drewniane, doskonałe do pracy i nauki.",
         "picture": "../assets/images/biurko.jpg",
         "material": "drewno",
-        "space": "pokoj",
+        "space": "biuro",
         "collection": "popularne"
     },
     {
