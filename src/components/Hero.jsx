@@ -1,5 +1,6 @@
 import React from 'react'
 import backgroundImage from '../assets/images/salon_kanapa.webp'
+import { Link } from 'react-router-dom'
 
 function Hero({ title = 'Nowa Kolekcja Mebli', subtitle = 'Odkryj naszą najnowszą kolekcję mebli, które odmienią Twoje wnętrze!' }) {
   return (
@@ -13,12 +14,12 @@ function Hero({ title = 'Nowa Kolekcja Mebli', subtitle = 'Odkryj naszą najnows
             <p className="text-lg md:text-xl mb-6">
               {subtitle}
             </p>
-            <a
-              href="/produkty.html"
+            <Link
+              to="/products"
               className="inline-block bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-gray-200 border border-black transition"
             >
               Zobacz kolekcję
-            </a>
+            </Link>
           </div>
         </section>
     </>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import shopCartProducts from '../shop_cart_products.json'
 import { useCart } from '../context/CartContext.jsx'
+import { Link } from 'react-router-dom';
 
 function ShopCartPage() {
 
@@ -39,13 +40,20 @@ function ShopCartPage() {
                         )
                     }) : (<p className="text-xl mb-8">Koszyk jest pusty</p>)}                    
                 </div>
-
-                <div className="mt-10 pt-6 flex flex-col items-end">
-                    <p className="text-lg font-semibold mb-4">Suma: <span className="text-dark">{totalPrice} zł</span></p>
-                    
-                    <a href="/checkout.html" className="inline-block bg-white text-dark px-4 py-2 rounded-md hover:bg-gray-200 border border-black transition">
-                        Przejdź do płatności
-                    </a>
+                <div>
+                    { cart.length !== 0 ? (                 
+                        <div className="mt-10 pt-6 flex flex-col items-end">
+                            <p className="text-lg font-semibold mb-4">Suma: <span className="text-dark">{totalPrice} zł</span></p>
+                            
+                            <Link to="/checkout.html" className="inline-block bg-white text-dark px-4 py-2 rounded-md hover:bg-gray-200 border border-black transition">
+                                Przejdź do płatności
+                            </Link>
+                        </div> 
+                ) : (
+                            <Link to="/" className="inline-block bg-white text-dark px-4 py-2 rounded-md hover:bg-gray-200 border border-black transition">
+                                Wroć do zakupów
+                            </Link>
+                    )}
                 </div>
             </div>
         </section>
