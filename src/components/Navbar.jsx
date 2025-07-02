@@ -1,7 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'    
 
 function Navbar() {
+
+    const { cart } = useCart();
+    const cartCount = cart.length;
+
   return (
     <>
         {/* <!-- navbar --> */}
@@ -58,8 +63,13 @@ function Navbar() {
                 </Link>
                 <Link
                 to="/shop-cart"
-                className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 relative"
                 ><i className="fa-solid fa-cart-shopping"></i>
+                { cartCount > 0 && (
+                    <span className="absolute top-0 right-0 bg-gray-300 text-white text-[10px] font-bold rounded-full px-2 py-1 h-5 w-5 flex items-center justify-center">
+                        {cartCount}
+                    </span>
+                )}
                 </Link> 
             </div>
     
