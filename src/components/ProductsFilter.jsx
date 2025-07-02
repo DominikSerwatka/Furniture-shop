@@ -5,10 +5,10 @@ function ProductsFilter({ searchParams, setSearchParams }) {
   return (
     <>
         <h2 className="text-xl font-bold mb-6">Filtry</h2>
-        
+
         <ProductsFilterGroup value={searchParams} category="material" options={['drewno', 'metal']} name="Materiał" setSearchParams={setSearchParams}/>
 
-        <ProductsFilterGroup value={searchParams} category="space" options={['pokoj', 'kuchnia', 'lazienka']} name="Pomieszczenie" setSearchParams={setSearchParams}/>
+        <ProductsFilterGroup value={searchParams} category="space" options={['pokoj', 'kuchnia', 'lazienka', 'biuro', 'sypialnia']} name="Pomieszczenie" setSearchParams={setSearchParams}/>
 
         <ProductsFilterGroup value={searchParams} category="collection" options={['popularne', 'nowa-kolekcja']} name="Kolekcje" setSearchParams={setSearchParams}/>
 

@@ -2,6 +2,7 @@
     {
         "id": 1,
         "name": "Łazienka",
+        "linkName": "lazienka",
         "description": "Nowoczesna łazienka z eleganckimi akcesoriami, zapewniająca komfort i funkcjonalność.",
         "picture": "../assets/images/bathromm.webp"
 
@@ -9,6 +10,7 @@
     {
         "id": 2,
         "name": "Kuchnia",
+        "linkName": "kuchnia",
         "description": "Praktyczna kuchnia z nowoczesnymi urządzeniami, idealna do gotowania i spotkań rodzinnych.",
         "picture": "../assets/images/kitchen.avif"
 
@@ -16,6 +18,7 @@
     {
         "id": 3,
         "name": "Pokój",
+        "linkName": "pokoj",
         "description": "Przytulny pokój, idealny do odpoczynku i nauki, z wygodnym łóżkiem i biurkiem.",
         "picture": "../assets/images/living_room.webp" 
 
@@ -23,12 +26,14 @@
     {
         "id": 4,
         "name": "Biuro",
+        "linkName": "biuro",
         "description": "Funkcjonalne biuro z ergonomicznym biurkiem i wygodnym krzesłem, idealne do pracy zdalnej.",
         "picture": "../assets/images/office.jpg"
     },
     {
         "id": 5,
         "name": "Sypialnia",
+        "linkName": "sypialnia",
         "description": "Stylowa sypialnia z dużym łóżkiem i szafą, zapewniająca komfortowy sen.",
         "picture": "../assets/images/bedroom.jpg"
     }

@@ -47,7 +47,7 @@
         "description": "Elegancki stół jadalniany, idealny do rodzinnych obiadów.",
         "picture": "../assets/images/stol_jadalniany.webp",
         "material": "drewno",
-        "space": "pokoj",
+        "space": "kuchnia",
         "collection": "popularne"
     },
     {
@@ -77,7 +77,7 @@
         "description": "Wygodne łóżko z materacem, zapewniające zdrowy sen.",
         "picture": "../assets/images/lozko_z_materacem.webp",
         "material": "drewno",
-        "space": "pokoj",
+        "space": "sypialnia",
         "collection": "nowa-kolekcja"
     },
     {
@@ -87,7 +87,7 @@
         "description": "Praktyczna szafka nocna, idealna do przechowywania drobiazgów.",
         "picture": "../assets/images/lozko_z_materacem.webp",
         "material": "drewno",
-        "space": "pokoj",
+        "space": "sypialnia",
         "collection": "nowa-kolekcja"
     },
     {
@@ -97,7 +97,7 @@
         "description": "Stylowy stół kawowy, doskonały do salonu.",
         "picture": "../assets/images/coffe_table.jpg",
         "material": "drewno",
-        "space": "pokoj",
+        "space": "kuchnia",
         "collection": "nowa-kolekcja"
     }
     ]  

@@ -15,7 +15,7 @@ function Hero({ title = 'Nowa Kolekcja Mebli', subtitle = 'Odkryj naszą najnows
               {subtitle}
             </p>
             <Link
-              to="/products"
+              to="/products?collection=nowa-kolekcja"
               className="inline-block bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-gray-200 border border-black transition"
             >
               Zobacz kolekcję
