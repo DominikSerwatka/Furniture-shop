@@ -1,16 +1,16 @@
 [
-    {
-        "id": 1,
-        "name": "Szafa przesuwna",
-        "price": 1499,
-        "amout": 1,
-        "image": "../assets/images/szafa_przesuwna.webp"
-    },
-    {
-        "id": 2,
-        "name": "Biurko",
-        "price": 899,
-        "amout": 2,
-        "image": "../assets/images/biurko.jpg"
-    }
+  {
+    "id": 1,
+    "name": "Szafa przesuwna",
+    "price": 1499,
+    "amout": 1,
+    "image": "../assets/images/szafa_przesuwna.webp"
+  },
+  {
+    "id": 2,
+    "name": "Biurko",
+    "price": 899,
+    "amout": 2,
+    "image": "../assets/images/biurko.jpg"
+  }
 ]
