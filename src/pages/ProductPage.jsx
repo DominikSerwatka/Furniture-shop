@@ -4,11 +4,13 @@ import { useCart } from '../context/CartContext.jsx';
 import ProductImage from '../components/ProductImage.jsx';
 import ProductDetails from '../components/ProductDetails.jsx';
 import ProductAction from '../components/ProductAction.jsx';
+import { useFavorites } from '../context/FavoritesContext.jsx';
 
 function ProductPage() {
   const product = useLoaderData();
 
   const { addToCart } = useCart();
+  const { favoriteClick } = useFavorites();
 
   return (
     <>
@@ -22,7 +24,7 @@ function ProductPage() {
               productDescription={product.description}
               productPrice={product.price}
             />
-            <ProductAction addToCart={addToCart} product={product} />
+            <ProductAction addToCart={addToCart} product={product} favoriteClick={favoriteClick} />
           </div>
         </div>
       </section>
