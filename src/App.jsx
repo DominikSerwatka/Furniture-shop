@@ -13,6 +13,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import ShopCartPage from './pages/ShopCartPage';
 import ProductPage, { productLoader } from './pages/ProductPage';
 import FavoritesPage from './pages/FavoritesPage';
+import RegisterPage from './pages/RegisterPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path="/products/:id" element={<ProductPage />} loader={productLoader} />
       <Route path="/shop-cart" element={<ShopCartPage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
+      <Route path="/register" element={<RegisterPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
