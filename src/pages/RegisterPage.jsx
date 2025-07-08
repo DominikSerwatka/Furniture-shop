@@ -2,6 +2,60 @@ import React from 'react';
 import { useState } from 'react';
 
 function RegisterPage() {
+  const [registerFormData, setRegisterFormData] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!registerFormData.name) {
+      errors.name = 'Imię jest wymagane';
+    }
+    if (!registerFormData.lastName) {
+      errors.lastName = 'Nazwisko jest wymagane';
+    }
+    if (!registerFormData.email) {
+      errors.email = 'Email jest wymagany';
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(registerFormData.email)) {
+      errors.email = 'Nieprawidłowy format emaila';
+    }
+    if (!registerFormData.password) {
+      errors.password = 'Hasło jest wymagane';
+    } else if (registerFormData.password.length < 6) {
+      errors.password = 'Hasło musi mieć co najmniej 6 znaków';
+    }
+    return errors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const errors = validateForm();
+    setFormErrors(errors);
+
+    console.log('Validation errors: ', errors);
+
+    console.log('Form submitted: ', registerFormData);
+  };
+
   const [nameFocus, setNameFocus] = useState(false);
   const [lastNameFocus, setLastNameFocus] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
@@ -10,6 +64,16 @@ function RegisterPage() {
 
   const slashEye = 'fa-solid fa-eye-slash';
   const eye = 'fa-solid fa-eye';
+
+  const nameInputOnBlur = (compareValue, methodToUse, key) => {
+    methodToUse(compareValue !== '');
+    if (compareValue !== '') {
+      setFormErrors((prevState) => ({
+        ...prevState,
+        [key]: '',
+      }));
+    }
+  };
 
   return (
     <>
@@ -29,16 +93,18 @@ function RegisterPage() {
 
               <input
                 type="text"
-                name="firstName"
+                name="name"
                 id="firstName"
-                value={null}
-                onChange={null}
+                value={registerFormData.name}
+                onChange={handleChange}
                 onFocus={() => setNameFocus(true)}
-                onBlur={() => setNameFocus(false)}
+                onBlur={() => nameInputOnBlur(registerFormData.name, setNameFocus, 'name')}
                 placeholder={nameFocus ? '' : 'Imię'}
-                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50"
+                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
               />
-              {/* {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>} */}
+              {formErrors.name === '' ? null : (
+                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.name}</p>
+              )}
             </div>
 
             <div className="relative">
@@ -53,14 +119,18 @@ function RegisterPage() {
               <input
                 type="text"
                 name="lastName"
-                value={null}
-                onChange={null}
-                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50"
-                onFocus={() => setLastNameFocus(true)}
-                onBlur={() => setLastNameFocus(false)}
+                value={registerFormData.lastName}
+                onChange={handleChange}
+                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
+                onFocus={() => setLastNameFocus(true)} // send true if lastName is not empty
+                onBlur={() =>
+                  nameInputOnBlur(registerFormData.lastName, setLastNameFocus, 'lastName')
+                } // send false if lastName is empty
                 placeholder={lastNameFocus ? '' : 'Nazwisko'}
               />
-              {/* {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>} */}
+              {formErrors.lastName === '' ? null : (
+                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.lastName}</p>
+              )}
             </div>
 
             <div className="relative">
@@ -75,14 +145,16 @@ function RegisterPage() {
               <input
                 type="email"
                 name="email"
-                value={null}
-                onChange={null}
-                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50"
+                value={registerFormData.email}
+                onChange={handleChange}
+                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
                 onFocus={() => setEmailFocus(true)}
-                onBlur={() => setEmailFocus(false)}
+                onBlur={() => nameInputOnBlur(registerFormData.email, setEmailFocus, 'email')}
                 placeholder={emailFocus ? '' : 'Email'}
               />
-              {/* {errors.email && <p className="text-red-500 text-sm">{null}</p>} */}
+              {formErrors.email === '' ? null : (
+                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.email}</p>
+              )}
             </div>
 
             <div className="relative">
@@ -95,13 +167,15 @@ function RegisterPage() {
                 </label>
               )}
               <input
-                type="password"
+                type={passwordButton ? 'text' : 'password'}
                 name="password"
-                value={null}
-                onChange={null}
-                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50"
+                value={registerFormData.password}
+                onChange={handleChange}
+                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
                 onFocus={() => setPasswordFocus(true)}
-                onBlur={() => setPasswordFocus(false)}
+                onBlur={() =>
+                  nameInputOnBlur(registerFormData.password, setPasswordFocus(), 'password')
+                }
                 placeholder={passwordFocus ? '' : 'Hasło'}
               />
               <button
@@ -112,12 +186,15 @@ function RegisterPage() {
               >
                 <i className={passwordButton ? slashEye : eye}></i>
               </button>
-              {/* {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>} */}
+              {formErrors.password === '' ? null : (
+                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.password}</p>
+              )}
             </div>
 
             <button
               type="submit"
               className="w-full border border-black text-dark py-2 px-4 rounded-md hover:bg-gray-200 transition"
+              onClick={handleSubmit}
             >
               Zarejestruj się
             </button>
