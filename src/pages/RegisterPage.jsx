@@ -174,7 +174,7 @@ function RegisterPage() {
                 className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
                 onFocus={() => setPasswordFocus(true)}
                 onBlur={() =>
-                  nameInputOnBlur(registerFormData.password, setPasswordFocus(), 'password')
+                  nameInputOnBlur(registerFormData.password, setPasswordFocus, 'password')
                 }
                 placeholder={passwordFocus ? '' : 'Hasło'}
               />
