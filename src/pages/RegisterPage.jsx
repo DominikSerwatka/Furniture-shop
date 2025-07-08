@@ -65,6 +65,8 @@ function RegisterPage() {
   const slashEye = 'fa-solid fa-eye-slash';
   const eye = 'fa-solid fa-eye';
 
+  const eyeButtonClassName = "absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black focus:outline-none";
+
   const nameInputOnBlur = (compareValue, methodToUse, key) => {
     methodToUse(compareValue !== '');
     if (compareValue !== '') {
@@ -171,7 +173,7 @@ function RegisterPage() {
                 name="password"
                 value={registerFormData.password}
                 onChange={handleChange}
-                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
+                className="mt-1 block w-full border rounded-md px-3 py-2 -mb-3 hover:bg-gray-50 focus:bg-white"
                 onFocus={() => setPasswordFocus(true)}
                 onBlur={() =>
                   nameInputOnBlur(registerFormData.password, setPasswordFocus, 'password')
@@ -181,16 +183,17 @@ function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setPasswordButton((prevState) => !prevState)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black focus:outline-none"
+                className={eyeButtonClassName}
                 tabIndex={-1}
               >
                 <i className={passwordButton ? slashEye : eye}></i>
               </button>
-              {formErrors.password === '' ? null : (
-                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.password}</p>
-              )}
             </div>
-
+            <div>
+              {formErrors.password === '' ? null : (
+                <p className="text-red-500 text-sm pl-1">{formErrors.password}</p>
+              )}                
+            </div>
             <button
               type="submit"
               className="w-full border border-black text-dark py-2 px-4 rounded-md hover:bg-gray-200 transition"

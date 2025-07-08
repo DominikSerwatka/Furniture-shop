@@ -104,7 +104,7 @@ function LoginPage() {
                 name="password"
                 value={loginFormData.password}
                 onChange={handleChange}
-                className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
+                className="mt-1 block w-full border rounded-md px-3 -mb-3 py-2 hover:bg-gray-50 focus:bg-white"
                 onFocus={() => setPasswordFocus(true)}
                 onBlur={() => inputOnBlur(loginFormData.password, setPasswordFocus, 'password')}
                 placeholder={passwordFocus ? '' : 'Hasło'}
@@ -117,10 +117,12 @@ function LoginPage() {
               >
                 <i className={passwordButton ? slashEye : eye}></i>
               </button>
-              {formErrors.password === '' ? null : (
-                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.password}</p>
-              )}
             </div>
+            <div>
+              {formErrors.password === '' ? null : (
+                <p className="text-red-500 text-sm pl-1">{formErrors.password}</p>
+              )}                
+            </div>            
 
             <button
               type="submit"
