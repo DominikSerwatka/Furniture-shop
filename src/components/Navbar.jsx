@@ -7,7 +7,7 @@ function Navbar() {
   const { cart } = useCart();
   const cartCount = cart.length;
 
-  const[isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
@@ -49,23 +49,54 @@ function Navbar() {
             </div>
 
             <div className="flex space-x-4">
-              <div className='relative group'
+              <div
+                className="relative group"
                 onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}>
-                <button
-                  className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <button className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
                   <i className="fa-regular fa-user"></i>
                 </button>
-                { isHovered && (
-                <div className="absolute left-0 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 z-50">
-                    <Link to="profile" className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md" role="menuitem" tabIndex="-1" id="menu-item-0">Profil</Link>
-                    <Link to="login" className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md" role="menuitem" tabIndex="-1" id="menu-item-1">Logowanie</Link>
-                    <Link to="register" className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md" role="menuitem" tabIndex="-1" id="menu-item-2">Rejestracja</Link>
-                    <Link to="logout" className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md" role="menuitem" tabIndex="-1" id="menu-item-2">Wylogowanie</Link>
-                </div>
-                )
-                }
+                {isHovered && (
+                  <div className="absolute left-0 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 z-50">
+                    <Link
+                      to="profile"
+                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                      role="menuitem"
+                      tabIndex="-1"
+                      id="menu-item-0"
+                    >
+                      Profil
+                    </Link>
+                    <Link
+                      to="login"
+                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                      role="menuitem"
+                      tabIndex="-1"
+                      id="menu-item-1"
+                    >
+                      Logowanie
+                    </Link>
+                    <Link
+                      to="register"
+                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                      role="menuitem"
+                      tabIndex="-1"
+                      id="menu-item-2"
+                    >
+                      Rejestracja
+                    </Link>
+                    <Link
+                      to="logout"
+                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                      role="menuitem"
+                      tabIndex="-1"
+                      id="menu-item-2"
+                    >
+                      Wylogowanie
+                    </Link>
+                  </div>
+                )}
               </div>
 
               <Link

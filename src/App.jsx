@@ -14,6 +14,8 @@ import ShopCartPage from './pages/ShopCartPage';
 import ProductPage, { productLoader } from './pages/ProductPage';
 import FavoritesPage from './pages/FavoritesPage';
 import RegisterPage from './pages/RegisterPage';
+import ProfilePage from './pages/ProfilePage';
+import LoginPage from './pages/LoginPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,8 @@ const router = createBrowserRouter(
       <Route path="/shop-cart" element={<ShopCartPage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
