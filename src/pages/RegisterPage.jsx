@@ -1,7 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
+
+  const navigate = useNavigate();
+  const { currentUser, registerUser, isLoggedIn } = useAuth();
+
   const [registerFormData, setRegisterFormData] = useState({
     name: '',
     lastName: '',
@@ -53,6 +59,24 @@ function RegisterPage() {
 
     console.log('Validation errors: ', errors);
 
+    if (Object.keys(errors).length === 0) {
+      if (isLoggedIn) {
+        console.log('User is already logged in:', currentUser);
+      } else {
+        const registrationResult = registerUser({email: registerFormData.email, password: registerFormData.password, name: registerFormData.name, lastName: registerFormData.lastName });
+        if (registrationResult) {
+          console.log('User registered successfully:', registerFormData);
+          navigate('/profile');
+        } else {
+          console.log('Registration failed. User already exists with this email.');
+          setFormErrors((prevState) => ({
+            ...prevState,
+            email: 'Użytkownik z tym adresem email już istnieje',
+          }));
+        }
+      }
+    }
+
     console.log('Form submitted: ', registerFormData);
   };
 
@@ -65,7 +89,8 @@ function RegisterPage() {
   const slashEye = 'fa-solid fa-eye-slash';
   const eye = 'fa-solid fa-eye';
 
-  const eyeButtonClassName = "absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black focus:outline-none";
+  const eyeButtonClassName =
+    'absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black focus:outline-none';
 
   const nameInputOnBlur = (compareValue, methodToUse, key) => {
     methodToUse(compareValue !== '');
@@ -192,7 +217,7 @@ function RegisterPage() {
             <div>
               {formErrors.password === '' ? null : (
                 <p className="text-red-500 text-sm pl-1">{formErrors.password}</p>
-              )}                
+              )}
             </div>
             <button
               type="submit"

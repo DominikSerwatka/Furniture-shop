@@ -121,8 +121,8 @@ function LoginPage() {
             <div>
               {formErrors.password === '' ? null : (
                 <p className="text-red-500 text-sm pl-1">{formErrors.password}</p>
-              )}                
-            </div>            
+              )}
+            </div>
 
             <button
               type="submit"
