@@ -16,6 +16,12 @@ import FavoritesPage from './pages/FavoritesPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
+import Orders from './components/Orders';
+import Returns from './components/Returns';
+import Settings from './components/Settings';
+import Payments from './components/Payments';
+import Opinions from './components/Opinions';
+import Profile from './components/Profile';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,9 +32,16 @@ const router = createBrowserRouter(
       <Route path="/shop-cart" element={<ShopCartPage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFoundPage />} />
+      <Route element={<ProfilePage />}>
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/returns" element={<Returns />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/opinions" element={<Opinions />} />
+        <Route path="/profile" element={<Profile />} />
+      </Route>
     </Route>
   )
 );

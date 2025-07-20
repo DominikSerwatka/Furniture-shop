@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const { cart } = useCart();
   const cartCount = cart.length;
+
+  const navigate = useNavigate();
 
   const [isHovered, setIsHovered] = useState(false);
   const { loggOutUser, isLoggedIn } = useAuth();
@@ -56,7 +59,7 @@ function Navbar() {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <button className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
+                <button className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2" onClick={() => navigate('/profile')}>
                   <i className="fa-regular fa-user"></i>
                 </button>
                 {isHovered && (
