@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 function Profile() {
   return (
     <>
-    <p>Test profile</p>
+      <p>Test profile</p>
     </>
   );
 }

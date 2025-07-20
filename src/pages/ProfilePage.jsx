@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
 import { Outlet } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function ProfilePage() {
   const { isLoggedIn, currentUser } = useAuth();
@@ -13,36 +13,46 @@ function ProfilePage() {
           <aside className="w-1/4 border-r p-6 space-y-4">
             <h2 className="text-xl font-semibold mb-4">Witaj, {currentUser.name}</h2>
             <nav className="py-1">
-              <Link
+              <NavLink
                 to="/orders"
-               className="block w-full text-left px-3 py-3 rounded hover:bg-gray-100" 
+                className={({ isActive }) =>
+                  `block w-full text-left px-3 py-3 rounded hover:bg-gray-100 ${isActive ? 'bg-gray-100 font-medium' : ''}`
+                }
               >
                 Moje zamówienia
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/returns"
-                className="block w-full text-left px-3 py-3 rounded hover:bg-gray-100"
+                className={({ isActive }) =>
+                  `block w-full text-left px-3 py-3 rounded hover:bg-gray-100 ${isActive ? 'bg-gray-100 font-medium' : ''}`
+                }
               >
                 Zwroty i reklamacje
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/settings"
-                className="block w-full text-left px-3 py-3 rounded hover:bg-gray-100"
+                className={({ isActive }) =>
+                  `block w-full text-left px-3 py-3 rounded hover:bg-gray-100 ${isActive ? 'bg-gray-100 font-medium' : ''}`
+                }
               >
                 Ustawienia konta
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/payments"
-                className="block w-full text-left px-3 py-3 rounded hover:bg-gray-100"
+                className={({ isActive }) =>
+                  `block w-full text-left px-3 py-3 rounded hover:bg-gray-100 ${isActive ? 'bg-gray-100 font-medium' : ''}`
+                }
               >
-                Adressy i płatności
-              </Link>
-              <Link
+                Adresy i płatności
+              </NavLink>
+              <NavLink
                 to="/opinions"
-                className="block w-full text-left px-3 py-3 rounded hover:bg-gray-100"
+                className={({ isActive }) =>
+                  `block w-full text-left px-3 py-3 rounded hover:bg-gray-100 ${isActive ? 'bg-gray-100 font-medium' : ''}`
+                }
               >
                 Opinie
-              </Link>             
+              </NavLink>
             </nav>
           </aside>
 

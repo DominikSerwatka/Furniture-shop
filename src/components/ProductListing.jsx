@@ -39,10 +39,10 @@ function ProductListing({ product }) {
         >
           {showFullDescription ? 'Less' : 'More'}
         </button>
-        <span className="block text-lg font-bold text-indigo-600 mb-2">{product.price}</span>
+        <span className="block text-lg font-bold text-dark mb-2">{product.price}</span>
         <Link
           to={`/products/${product.id}`}
-          className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+          className="inline-block bg-white text-black px-6 py-3 rounded-md hover:bg-gray-200 border border-black transition"
         >
           Zobacz produkt
         </Link>

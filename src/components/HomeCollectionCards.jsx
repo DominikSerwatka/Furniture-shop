@@ -48,7 +48,7 @@ function HomeCollectionCards() {
                 <h3 className="text-xl font-semibold mb-2">{space.name}</h3>
                 <Link
                   to={`/products?space=${space.linkName}`}
-                  className="text-indigo-600 font-medium hover:underline"
+                  className="text-dark font-medium hover:underline"
                 >
                   Zobacz meble
                 </Link>

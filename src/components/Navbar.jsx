@@ -59,7 +59,10 @@ function Navbar() {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <button className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2" onClick={() => navigate('/profile')}>
+                <button
+                  className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  onClick={() => navigate('/profile')}
+                >
                   <i className="fa-regular fa-user"></i>
                 </button>
                 {isHovered && (
