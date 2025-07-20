@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
-
   const navigate = useNavigate();
   const { currentUser, registerUser, isLoggedIn } = useAuth();
 
@@ -63,7 +62,12 @@ function RegisterPage() {
       if (isLoggedIn) {
         console.log('User is already logged in:', currentUser);
       } else {
-        const registrationResult = registerUser({email: registerFormData.email, password: registerFormData.password, name: registerFormData.name, lastName: registerFormData.lastName });
+        const registrationResult = registerUser({
+          email: registerFormData.email,
+          password: registerFormData.password,
+          name: registerFormData.name,
+          lastName: registerFormData.lastName,
+        });
         if (registrationResult) {
           console.log('User registered successfully:', registerFormData);
           navigate('/profile');

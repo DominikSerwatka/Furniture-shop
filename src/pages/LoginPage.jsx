@@ -1,7 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const { currentUser, loginUser, isLoggedIn } = useAuth();
+
+  const navigate = useNavigate();
+
   const [loginFormData, setLoginFormData] = useState({
     email: '',
     password: '',
@@ -41,6 +47,27 @@ function LoginPage() {
 
     const errors = validateForm();
     setFormErrors(errors);
+
+    console.log('Validation errors: ', errors);
+    if (Object.keys(errors).length === 0) {
+      if (isLoggedIn) {
+        console.log('User is already logged in: ', currentUser);
+      }
+      const loginResult = loginUser({
+        email: loginFormData.email,
+        password: loginFormData.password,
+      });
+      if (loginResult) {
+        console.log('User logged in successfully:', currentUser);
+        navigate('/profile');
+      } else {
+        console.log('Invalid email or password');
+        setFormErrors((prevState) => ({
+          ...prevState,
+          email: 'Nieprawidłowy email lub hasło',
+        }));
+      }
+    }
   };
 
   const [emailFocus, setEmailFocus] = useState(false);

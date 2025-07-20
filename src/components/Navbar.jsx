@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function Navbar() {
   const { cart } = useCart();
   const cartCount = cart.length;
 
   const [isHovered, setIsHovered] = useState(false);
+  const { loggOutUser, isLoggedIn } = useAuth();
 
   return (
     <>
@@ -59,42 +61,58 @@ function Navbar() {
                 </button>
                 {isHovered && (
                   <div className="absolute left-0 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 z-50">
-                    <Link
-                      to="profile"
-                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-0"
-                    >
-                      Profil
-                    </Link>
-                    <Link
-                      to="login"
-                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-1"
-                    >
-                      Logowanie
-                    </Link>
-                    <Link
-                      to="register"
-                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-2"
-                    >
-                      Rejestracja
-                    </Link>
-                    <Link
-                      to="logout"
-                      className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-2"
-                    >
-                      Wylogowanie
-                    </Link>
+                    {isLoggedIn ? (
+                      <>
+                        <Link
+                          to="profile"
+                          className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-0"
+                        >
+                          Profil
+                        </Link>
+                        <button
+                          className="block w-full text-left px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-2"
+                          onClick={() => loggOutUser()}
+                        >
+                          Wylogowanie
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to="profile"
+                          className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-0"
+                        >
+                          Profil
+                        </Link>
+                        <Link
+                          to="login"
+                          className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-1"
+                        >
+                          Logowanie
+                        </Link>
+                        <Link
+                          to="register"
+                          className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-2"
+                        >
+                          Rejestracja
+                        </Link>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
