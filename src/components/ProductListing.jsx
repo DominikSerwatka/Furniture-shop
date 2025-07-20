@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useFavorites } from '../context/FavoritesContext';
+import { useNavigate } from 'react-router-dom';
 
 function ProductListing({ product }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const navigate = useNavigate();
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -25,9 +28,10 @@ function ProductListing({ product }) {
 
   return (
     <div
-      className="bg-gray-50 rounded-xl shadow-lg overflow-hidden"
+      className="bg-gray-50 rounded-xl shadow-lg overflow-hidden cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => navigate(`/products/${product.id}`)}
     >
       <img src={product.picture} alt="Szafa przesuwna" className="w-full h-48 object-cover" />
       <div className="p-4 text-center">
