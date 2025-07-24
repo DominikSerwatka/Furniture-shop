@@ -1,18 +1,34 @@
 import React from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState(() => {
-    const stored = localStorage.getItem('cart');
+  const { isLoggedIn, currentUser } = useAuth();
+
+  const cartStorageKey = useMemo(
+    () => (isLoggedIn ? `cart_${currentUser.email}` : 'cart_guest'),
+    [isLoggedIn, currentUser?.email]
+  );
+
+  const loadCart = (key) => {
+    const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : [];
+  };
+
+  const [cart, setCart] = useState(() => {
+    return loadCart(cartStorageKey);
   });
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    setCart(loadCart(cartStorageKey));
+  }, [cartStorageKey]);
+
+  useEffect(() => {
+    localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+  }, [cart, cartStorageKey]);
 
   const addToCart = (product) => {
     setCart((prev) => {
