@@ -7,23 +7,21 @@ import { useAuth } from './AuthContext';
 const FavoriteContext = createContext();
 
 function FavoritesProvider({ children }) {
-
   const { isLoggedIn, currentUser } = useAuth();
 
-  const storageKey = useMemo(() => (
-    isLoggedIn ? `favorites_${currentUser.email}` : 'favorites_guest'
-  ), [isLoggedIn, currentUser?.email]);
+  const storageKey = useMemo(
+    () => (isLoggedIn ? `favorites_${currentUser.email}` : 'favorites_guest'),
+    [isLoggedIn, currentUser?.email]
+  );
 
-    const loadFavorites = (key) => {
+  const loadFavorites = (key) => {
     const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : [];
-  }
-
+  };
 
   const [favorites, setFavorites] = useState(() => {
     return loadFavorites(storageKey);
   });
-
 
   useEffect(() => {
     setFavorites(loadFavorites(storageKey));
@@ -32,7 +30,6 @@ function FavoritesProvider({ children }) {
   useEffect(() => {
     localStorage.setItem(storageKey, JSON.stringify(favorites));
   }, [favorites, storageKey]);
-
 
   const favoriteClick = (favorite) => {
     setFavorites((prevFavorites) => {

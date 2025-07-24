@@ -51,7 +51,13 @@ function ProductListing({ product }) {
           Zobacz produkt
         </Link>
         {isHovered && (
-          <button className={buttonClass} onClick={() => favoriteClick(product)}>
+          <button
+            className={buttonClass}
+            onClick={(e) => {
+              e.stopPropagation();
+              favoriteClick(product);
+            }}
+          >
             <i className="fa-regular fa-heart"></i>
           </button>
         )}
