@@ -1,27 +1,46 @@
 import React from 'react';
 import { createContext } from 'react';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from './AuthContext';
 
 const FavoriteContext = createContext();
 
 function FavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState(() => {
-    const stored = localStorage.getItem('favorites');
+
+  const { isLoggedIn, currentUser } = useAuth();
+
+  const storageKey = useMemo(() => (
+    isLoggedIn ? `favorites_${currentUser.email}` : 'favorites_guest'
+  ), [isLoggedIn, currentUser?.email]);
+
+    const loadFavorites = (key) => {
+    const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : [];
+  }
+
+
+  const [favorites, setFavorites] = useState(() => {
+    return loadFavorites(storageKey);
   });
 
+
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
+    setFavorites(loadFavorites(storageKey));
+  }, [storageKey]);
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(favorites));
+  }, [favorites, storageKey]);
+
 
   const favoriteClick = (favorite) => {
-    setFavorites((prevState) => {
-      const existingFavorite = prevState.find((p) => p.id === favorite.id);
+    setFavorites((prevFavorites) => {
+      const existingFavorite = prevFavorites.find((p) => p.id === favorite.id);
       if (existingFavorite) {
-        return prevState.filter((p) => p.id !== favorite.id);
+        return prevFavorites.filter((p) => p.id !== favorite.id);
       } else {
-        return [...prevState, favorite];
+        return [...prevFavorites, favorite];
       }
     });
   };
