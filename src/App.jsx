@@ -22,27 +22,36 @@ import Settings from './components/Settings';
 import Payments from './components/Payments';
 import Opinions from './components/Opinions';
 import Profile from './components/Profile';
+import CheckoutMainLayout from './layouts/CheckoutMainLayout';
+import CheckoutPage from './pages/CheckoutPage';
+import CheckoutSummaryPage from './pages/CheckoutSummaryPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<MainLayout />}>
-      <Route index element={<HomePage />} />
-      <Route path="/products" element={<ProductsPage />} />
-      <Route path="/products/:id" element={<ProductPage />} loader={productLoader} />
-      <Route path="/shop-cart" element={<ShopCartPage />} />
-      <Route path="/favorites" element={<FavoritesPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-      <Route element={<ProfilePage />}>
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/returns" element={<Returns />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/payments" element={<Payments />} />
-        <Route path="/opinions" element={<Opinions />} />
-        <Route path="/profile" element={<Profile />} />
+    <>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductPage />} loader={productLoader} />
+        <Route path="/shop-cart" element={<ShopCartPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+        <Route element={<ProfilePage />}>
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/returns" element={<Returns />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/payments" element={<Payments />} />
+          <Route path="/opinions" element={<Opinions />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Route>
-    </Route>
+      <Route element={<CheckoutMainLayout />}>
+        <Route path="/checkout/orderring" element={<CheckoutPage />} />
+        <Route path="/checkout/summary" element={<CheckoutSummaryPage />} />
+      </Route>
+    </>
   )
 );
 

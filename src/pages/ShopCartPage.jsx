@@ -59,10 +59,10 @@ function ShopCartPage() {
                 </p>
 
                 <Link
-                  to="/checkout"
+                  to="/checkout/orderring"
                   className="inline-block bg-white text-dark px-4 py-2 rounded-md hover:bg-gray-200 border border-black transition"
                 >
-                  Przejdź do płatności
+                  Przejdź do dostawy
                 </Link>
               </div>
             ) : (
