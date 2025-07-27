@@ -23,7 +23,7 @@ function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState('');
 
   const [nameFocus, setNameFocus] = useState(false);
-  const [lastNameFocus, setLastNamaFocus] = useState(false);
+  const [lastNameFocus, setLastNameFocus] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
   const [numberFocus, setNumberFocus] = useState(false);
   const [streetFocus, setStreetFocus] = useState(false);
@@ -45,6 +45,7 @@ function CheckoutPage() {
   };
 
   const onSubmitAction = () => {
+    console.log(userData);
     setCheckoutData(() => ({
       userData: userData,
       deliveryMethod: deliveryMethod,
@@ -55,7 +56,12 @@ function CheckoutPage() {
 
   return (
     <>
-      <form onSubmit={null}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmitAction();
+        }}
+      >
         <h2 className="text-2xl font-bold">Dane osobowe</h2>
 
         <div className="pt-3 grid grid-cols-2 gap-4">
@@ -82,10 +88,7 @@ function CheckoutPage() {
 
           <div className="relative col-span-1">
             {lastNameFocus && (
-              <label
-                htmlFor="lastName"
-                className="absolute left-3 -top-3 px-1 text-s text-gray-500 bg-white"
-              >
+              <label className="absolute left-3 -top-3 px-1 text-s text-gray-500 bg-white">
                 Nazwisko
               </label>
             )}
@@ -97,8 +100,8 @@ function CheckoutPage() {
               className="border p-3 rounded w-full"
               onChange={handleChange}
               value={userData.lastName}
-              onFocus={() => setLastNamaFocus(true)}
-              onBlur={() => inputOnBlur(userData.lastName, setLastNamaFocus, 'lastName')}
+              onFocus={() => setLastNameFocus(true)}
+              onBlur={() => inputOnBlur(userData.lastName, setLastNameFocus, 'lastName')}
             />
           </div>
 

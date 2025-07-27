@@ -10,38 +10,49 @@ function CheckoutSummaryPage() {
 
   return (
     <>
-      <h2 className="text-xl font-bold">Podsumowanie zamówienia</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">Podsumowanie zamówienia</h2>
+      <section className="bg-white shadow rounded-lg p-6 mb-6 border">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Dane osobowe</h3>
+            <p>
+              {userData.name} {userData.lastName}
+            </p>
+            <p>{userData.email}</p>
+            <p>{userData.number}</p>
+            <p>
+              {userData.street} {userData.houseNumber}, {userData.postalCode} {userData.city}
+            </p>
+          </div>
+          <Link to="/checkout/orderring" className="text-blue-600 hover:underline text-sm">
+            Zmień
+          </Link>
+        </div>
+      </section>
 
-      <div className="bg-gray-100 p-4 rounded">
-        <h3 className="font-semibold">Dane osobowe</h3>
-        <p>
-          {userData.name} {userData.lastName}
-        </p>
-        <p>{userData.email}</p>
-        <p>{userData.number}</p>
-        <p>
-          {userData.street} {userData.houseNumber}, {userData.postalCode} {userData.city}
-        </p>
-        <Link to="/checkout" className="text-blue-600 underline text-sm">
-          Zmień
-        </Link>
-      </div>
+      <section className="bg-white shadow rounded-lg p-6 mb-6 border">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Dostawa</h3>
+            <p>{deliveryMethod === 'kurier' ? 'Kurier (15 zł)' : 'Paczkomat (10 zł)'}</p>
+          </div>
+          <Link to="/checkout/orderring" className="text-blue-600 hover:underline text-sm">
+            Zmień
+          </Link>
+        </div>
+      </section>
 
-      <div className="bg-gray-100 p-4 rounded">
-        <h3 className="font-semibold">Dostawa</h3>
-        <p>{deliveryMethod}</p>
-        <Link to="/checkout" className="text-blue-600 underline text-sm">
-          Zmień
-        </Link>
-      </div>
-
-      <div className="bg-gray-100 p-4 rounded">
-        <h3 className="font-semibold">Płatność</h3>
-        <p>{paymentMethod}</p>
-        <Link to="/checkout" className="text-blue-600 underline text-sm">
-          Zmień
-        </Link>
-      </div>
+      <section className="bg-white shadow rounded-lg p-6 mb-6 border">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Płatność</h3>
+            <p>{paymentMethod === 'blik' ? 'BLIK' : paymentMethod}</p>
+          </div>
+          <Link to="/checkout/orderring" className="text-blue-600 hover:underline text-sm">
+            Zmień
+          </Link>
+        </div>
+      </section>
 
       <div className="flex justify-between items-center mt-10">
         <Link
@@ -54,7 +65,7 @@ function CheckoutSummaryPage() {
         <button
           onClick={() => navigate('/checkout/order')}
           type="submit"
-          className="inline-block bg-white text-dark px-4 py-2 rounded-md hover:bg-gray-200 border border-black transition"
+          className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition"
         >
           Zapłać i złóż zamówienie
         </button>
