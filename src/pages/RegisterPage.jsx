@@ -218,6 +218,7 @@ function RegisterPage() {
                 <i className={passwordButton ? slashEye : eye}></i>
               </button>
             </div>
+
             <div>
               {formErrors.password === '' ? null : (
                 <p className="text-red-500 text-sm pl-1">{formErrors.password}</p>

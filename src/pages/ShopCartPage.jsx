@@ -54,7 +54,7 @@ function ShopCartPage() {
           <div>
             {cart.length !== 0 ? (
               <div className="mt-10 pt-6 flex flex-col items-end">
-                <p className="text-lg font-semibold mb-4">
+                <p className="text-lg font-semibold mb-2">
                   Suma: <span className="text-dark">{totalPrice} zł</span>
                 </p>
 

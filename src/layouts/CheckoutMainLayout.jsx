@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function CheckoutMainLayout() {
   const location = useLocation();
   const currentPath = location.pathname;
-  const isSelected = 'font-bold text-indigo-600';
-  const isSelectedBorder = 'border-b-2 border-indigo-600';
+  const isSelected = 'font-bold text-gray-600';
+  const isSelectedBorder = 'border-b-2 border-gray-600';
 
   var checkoutClasses = {
     '/checkout/orderring': ['font-bold text-gray-400', 'text-center flex-1'],
