@@ -89,7 +89,7 @@ function LoginPage() {
 
   return (
     <>
-      <section className="pt-40 bg-gray-50 px-4 pb-60">
+      <section className="pt-10 bg-gray-50 px-4 pb-60">
         <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow">
           <h2 className="text-2xl font-bold mb-6 text-center">Zaloguj się</h2>
           <form onSubmit={null} className="space-y-4">

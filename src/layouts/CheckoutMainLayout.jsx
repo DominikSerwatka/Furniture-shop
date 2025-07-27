@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function CheckoutMainLayout() {
   const location = useLocation();
@@ -16,9 +17,14 @@ function CheckoutMainLayout() {
   checkoutClasses[currentPath][1] += ` ${isSelectedBorder}`;
 
   return (
-    <section className="pt-32 pb-16 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto p-8 bg-white shadow rounded-lg">
-        <div className="flex items-center justify-between mb-10">
+    <nav className="bg-white border-white-500 z-50 top-0 w-full">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          <div>
+            <Link className="flex flex-shrink-0 items-center mr-4" to="/">
+              <span className="hidden md:block text-black text-2xl font-bold ml-2">Meble</span>
+            </Link>
+          </div>
           <div className="text-center flex-1">
             <span className="font-bold text-gray-400">1. Koszyk</span>
           </div>
@@ -29,9 +35,11 @@ function CheckoutMainLayout() {
             <span className={checkoutClasses['/checkout/summary'][0]}>3. Podsumowanie</span>
           </div>
         </div>
-        <Outlet />
+        <div className="mt-10 max-w-4xl mx-auto">
+          <Outlet />
+        </div>
       </div>
-    </section>
+    </nav>
   );
 }
 

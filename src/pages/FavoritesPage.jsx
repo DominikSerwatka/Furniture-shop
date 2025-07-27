@@ -7,7 +7,7 @@ function FavoritesPage() {
 
   return (
     <>
-      <section className="pt-40 bg-white px-4">
+      <section className="pt-10 bg-white px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-8">Twoje ulubione</h2>
 

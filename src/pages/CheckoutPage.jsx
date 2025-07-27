@@ -7,7 +7,7 @@ function CheckoutPage() {
   return (
     <>
       <form onSubmit={null}>
-        <h2 className="text-2xl font-bold mb-6">Dane osobowe</h2>
+        <h2 className="text-2xl font-bold">Dane osobowe</h2>
 
         <div className="grid grid-cols-2 gap-4">
           <input

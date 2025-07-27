@@ -8,7 +8,7 @@ function ProfilePage() {
 
   if (isLoggedIn) {
     return (
-      <section className="pt-40 bg-gray-50 min-h-screen px-4 pb-20">
+      <section className="pt-10 bg-gray-50 min-h-screen px-4 pb-20">
         <div className="max-w-6xl mx-auto bg-white rounded-md shadow flex">
           <aside className="w-1/4 border-r p-6 space-y-4">
             <h2 className="text-xl font-semibold mb-4">Witaj, {currentUser.name}</h2>
@@ -64,7 +64,7 @@ function ProfilePage() {
     );
   } else {
     return (
-      <section className="pt-40 bg-white px-4">
+      <section className="pt-10 bg-white px-4">
         <h2 className="text-xl font-bold text-center">Użytkownik nie jest zalogowany</h2>
       </section>
     );

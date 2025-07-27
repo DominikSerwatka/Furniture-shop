@@ -17,7 +17,7 @@ function Navbar() {
   return (
     <>
       {/* <!-- navbar --> */}
-      <nav className="bg-white border-white-500 z-50 fixed top-0 w-full">
+      <nav className="bg-white border-white-500 z-50 top-0 w-full">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <div>

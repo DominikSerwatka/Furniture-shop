@@ -50,7 +50,7 @@ function ProductsPage() {
 
   return (
     <>
-      <section className="pt-[80px] bg-white px-4">
+      <section className="mt-10 bg-white px-4">
         <div className="flex gap-6">
           <aside className="shrink-0 bg-white p-4">
             <ProductsSort value={sortOrder} onSortChange={handleSortChange} />

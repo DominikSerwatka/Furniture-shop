@@ -17,7 +17,7 @@ function ShopCartPage() {
 
   return (
     <>
-      <section className="pt-40 pb-16 px-4 bg-white min-h-screen">
+      <section className="mt-10 pb-16 px-4 bg-white min-h-screen">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-8">Twój koszyk</h2>
 

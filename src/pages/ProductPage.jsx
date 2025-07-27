@@ -14,7 +14,7 @@ function ProductPage() {
 
   return (
     <>
-      <section className="pt-[80px] pb-16 px-4 bg-white">
+      <section className="mt-10 pb-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <ProductImage picture={product.picture} altText={product.name} />
 
