@@ -1,20 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
+import { useAddresses } from '../context/AddressesContext';
 
 function Payments() {
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      name: 'Adam',
-      lastName: 'Król',
-      street: 'Rybacka',
-      houseNumber: '3',
-      postalCode: '38-145',
-      city: 'Rybnik',
-      phoneNumber: '365823976',
-      email: 'adamkrol@gmail.com',
-    },
-  ]);
+  const { addresses, updateAddresses } = useAddresses();
 
   const [nameFocus, setNameFocus] = useState(false);
   const [lastNameFocus, setLastNameFocus] = useState(false);
@@ -78,22 +67,22 @@ function Payments() {
   const submitAddress = () => {
     const maxId = addresses.reduce((max, addr) => Math.max(max, addr.id), 0);
     if (currentAddress.id === 0) {
-      setAddresses((prevAddresses) => [...prevAddresses, { ...currentAddress, id: maxId + 1 }]);
+      var newAddresses = [...addresses, { ...currentAddress, id: maxId + 1 }];
+      updateAddresses(newAddresses);
     } else {
       console.log('Updating address with id:', currentAddress.id);
-      var newAddresses = addresses
+      var updatedAddresses = addresses
         .filter((p) => p.id !== currentAddress.id)
         .concat(currentAddress)
         .sort((a, b) => a.id - b.id);
-      setAddresses(newAddresses);
+      updateAddresses(updatedAddresses);
     }
     closeModal();
   };
 
   const handleDelete = (id) => {
-    setAddresses((prevAddresses) =>
-      prevAddresses.filter((p) => p.id !== id).sort((a, b) => a.id - b.id)
-    );
+    var newAddresses = addresses.filter((p) => p.id !== id).sort((a, b) => a.id - b.id);
+    updateAddresses(newAddresses);
   };
 
   return (

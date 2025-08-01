@@ -7,16 +7,19 @@ import { CartProvider } from './context/CartContext.jsx';
 import { FavoritesProvider } from './context/FavoritesContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { CheckoutProvider } from './context/CheckoutContext.jsx';
+import { AddressesProvider } from './context/AddressesContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
       <CartProvider>
-        <CheckoutProvider>
-          <FavoritesProvider>
-            <App />
-          </FavoritesProvider>
-        </CheckoutProvider>
+        <AddressesProvider>
+          <CheckoutProvider>
+            <FavoritesProvider>
+              <App />
+            </FavoritesProvider>
+          </CheckoutProvider>
+        </AddressesProvider>
       </CartProvider>
     </AuthProvider>
   </StrictMode>
