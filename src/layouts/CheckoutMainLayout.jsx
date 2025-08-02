@@ -35,7 +35,7 @@ function CheckoutMainLayout() {
             <span className={checkoutClasses['/checkout/summary'][0]}>3. Podsumowanie</span>
           </div>
         </div>
-        <div className="mt-10 max-w-4xl mx-auto">
+        <div className="mt-10 max-w-3xl mx-auto">
           <Outlet />
         </div>
       </div>
