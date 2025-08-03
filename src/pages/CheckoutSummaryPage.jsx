@@ -11,7 +11,7 @@ function CheckoutSummaryPage() {
   return (
     <>
       <h2 className="text-2xl font-bold mb-6 text-center">Podsumowanie zamówienia</h2>
-      <section className="bg-white shadow rounded-lg p-6 mb-6 border">
+      <section className="bg-gray-50 shadow rounded-lg p-6 mb-6 border">
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-lg font-semibold mb-2">Dane osobowe</h3>
@@ -24,31 +24,31 @@ function CheckoutSummaryPage() {
               {userData.street} {userData.houseNumber}, {userData.postalCode} {userData.city}
             </p>
           </div>
-          <Link to="/checkout/orderring" className="text-blue-600 hover:underline text-sm">
+          <Link to="/checkout/orderring" className="border p-2 rounded-md hover:bg-gray-100 border-black">
             Zmień
           </Link>
         </div>
       </section>
 
-      <section className="bg-white shadow rounded-lg p-6 mb-6 border">
+      <section className="bg-gray-50 shadow rounded-lg p-6 mb-6 border">
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-lg font-semibold mb-2">Dostawa</h3>
             <p>{deliveryMethod === 'kurier' ? 'Kurier (15 zł)' : 'Paczkomat (10 zł)'}</p>
           </div>
-          <Link to="/checkout/orderring" className="text-blue-600 hover:underline text-sm">
+          <Link to="/checkout/orderring" className="border p-2 rounded-md hover:bg-gray-100 border-black">
             Zmień
           </Link>
         </div>
       </section>
 
-      <section className="bg-white shadow rounded-lg p-6 mb-6 border">
+      <section className="bg-gray-50 shadow rounded-lg p-6 mb-6 border">
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-lg font-semibold mb-2">Płatność</h3>
             <p>{paymentMethod === 'blik' ? 'BLIK' : paymentMethod}</p>
           </div>
-          <Link to="/checkout/orderring" className="text-blue-600 hover:underline text-sm">
+          <Link to="/checkout/orderring" className="border p-2 rounded-md hover:bg-gray-100 border-black">
             Zmień
           </Link>
         </div>

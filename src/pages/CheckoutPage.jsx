@@ -153,7 +153,7 @@ function CheckoutPage() {
         {chooseAddress ? (
           <div
             key={chooseAddress.id}
-            className="relative bg-white shadow rounded-lg mt-4 mb-4 p-4 border"
+            className="relative bg-gray-50 shadow rounded-lg mt-4 mb-4 p-4 border"
           >
             <h4 className="font-semibold">
               {chooseAddress.name} {chooseAddress.lastName}
@@ -167,7 +167,7 @@ function CheckoutPage() {
             <p>{chooseAddress.phoneNumber}</p>
             <p>{chooseAddress.email}</p>
             <button
-              className="absolute top-2 right-2 bg-gray-50 border p-2 rounded-md"
+              className="absolute top-2 right-2 border p-2 rounded-md hover:bg-gray-100 border-black"
               onClick={() => setIsAddressesModalOpen(true)}
               type="button"
             >
