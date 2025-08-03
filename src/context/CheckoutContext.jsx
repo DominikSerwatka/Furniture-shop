@@ -10,7 +10,7 @@ export function CheckoutProvider({ children }) {
       name: '',
       lastName: '',
       email: '',
-      number: '',
+      phoneNumber: '',
       street: '',
       houseNumber: '',
       postalCode: '',

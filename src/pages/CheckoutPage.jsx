@@ -11,17 +11,6 @@ function CheckoutPage() {
 
   const { setCheckoutData } = useCheckout();
 
-  const [userData, setUserData] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    number: '',
-    street: '',
-    houseNumber: '',
-    postalCode: '',
-    city: '',
-  });
-
   const [deliveryMethod, setDeliveryMethod] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
 
@@ -35,12 +24,22 @@ function CheckoutPage() {
   const [cityFocus, setCityFocus] = useState(false);
 
   const onSubmitAction = () => {
-    console.log(userData);
+    console.log(chooseAddress);
     setCheckoutData(() => ({
-      userData: userData,
+      userData: {
+        name: chooseAddress.name,
+        lastName: chooseAddress.lastName,
+        email: chooseAddress.email,
+        phoneNumber: chooseAddress.phoneNumber,
+        street: chooseAddress.street,
+        houseNumber: chooseAddress.houseNumber,
+        postalCode: chooseAddress.postalCode,
+        city: chooseAddress.city,
+      },
       deliveryMethod: deliveryMethod,
       paymentMethod: paymentMethod,
     }));
+    console.log('Checkout data submitted:');
     navigate('/checkout/summary');
   };
 
@@ -114,8 +113,12 @@ function CheckoutPage() {
     console.log('Submitting new address');
     const maxId = addresses.reduce((max, addr) => Math.max(max, addr.id), 0);
     if (currentAddress.id === 0) {
-      var newAddresses = [...addresses, { ...currentAddress, id: maxId + 1 }];
+      var newAddress = { ...currentAddress, id: maxId + 1 };
+      var newAddresses = [...addresses, newAddress];
       updateAddresses(newAddresses);
+
+      setAddressCandidate(newAddress);
+      console.log(newAddress);
     } else {
       console.log('Updating address with id:', currentAddress.id);
       var updatedAddresses = addresses
@@ -130,6 +133,9 @@ function CheckoutPage() {
   const handleDelete = (id) => {
     var newAddresses = addresses.filter((p) => p.id !== id).sort((a, b) => a.id - b.id);
     updateAddresses(newAddresses);
+    if (addressCandidate?.id === id) {
+      setAddressCandidate(addresses.length > 1 ? addresses[0] : null);
+    }
   };
 
   const [addressCandidate, setAddressCandidate] = useState(chooseAddress);
@@ -232,7 +238,7 @@ function CheckoutPage() {
 
           <button
             onClick={() => onSubmitAction()}
-            type="submit"
+            type="button"
             className="inline-block bg-white text-dark px-4 py-2 rounded-md hover:bg-gray-200 border border-black transition"
           >
             Przejdź dalej
@@ -241,7 +247,7 @@ function CheckoutPage() {
 
         {isAddressesModalOpen && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center">
-            <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
+            <div className="bg-white p-6 rounded shadow-md w-full max-w-md max-h-[80vh] overflow-y-auto">
               <h1 className="text-lg mb-4">Zapisane adresy</h1>
               <div className="mb-4">
                 <button
@@ -291,7 +297,7 @@ function CheckoutPage() {
               <div className="flex justify-between mt-3">
                 <button
                   className="bg-black text-white rounded px-3 py-2 hover:bg-gray-300 order-1"
-                  onClick={() => setIsAddressesModalOpen(false)}
+                  onClick={() => submitAddressModal()}
                   type="button"
                 >
                   Zamknij

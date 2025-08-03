@@ -19,7 +19,7 @@ function CheckoutSummaryPage() {
               {userData.name} {userData.lastName}
             </p>
             <p>{userData.email}</p>
-            <p>{userData.number}</p>
+            <p>{userData.phoneNumber}</p>
             <p>
               {userData.street} {userData.houseNumber}, {userData.postalCode} {userData.city}
             </p>
