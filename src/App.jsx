@@ -25,12 +25,13 @@ import Profile from './components/Profile';
 import CheckoutMainLayout from './layouts/CheckoutMainLayout';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutSummaryPage from './pages/CheckoutSummaryPage';
+import productsLoader from './loaders/productsLoader';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
+        <Route index element={<HomePage />} loader={productsLoader} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductPage />} loader={productLoader} />
         <Route path="/shop-cart" element={<ShopCartPage />} />

@@ -1,8 +1,9 @@
 import React from 'react';
-import products from '../popular_products.json';
 import ProductListing from './ProductListing';
+import { useLoaderData } from 'react-router-dom';
 
 function HomePageProductListings() {
+  const products = useLoaderData();
   const productsToShow = products.slice(0, 4);
 
   return (

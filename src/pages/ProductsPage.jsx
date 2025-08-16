@@ -14,7 +14,7 @@ function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        var url = 'api/products';
+        var url = 'api/products/all';
         searchParams.forEach((value, key) => {
           url += (url.includes('?') ? '&' : '?') + `${key}=${value}`;
         });
