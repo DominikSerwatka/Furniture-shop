@@ -5,18 +5,18 @@ import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const { currentUser, registerUser, isLoggedIn } = useAuth();
+  const { user, register, isLoggedIn } = useAuth();
 
   const [registerFormData, setRegisterFormData] = useState({
     name: '',
-    lastName: '',
+    last_name: '',
     email: '',
     password: '',
   });
 
   const [formErrors, setFormErrors] = useState({
     name: '',
-    lastName: '',
+    last_name: '',
     email: '',
     password: '',
   });
@@ -34,7 +34,7 @@ function RegisterPage() {
     if (!registerFormData.name) {
       errors.name = 'Imię jest wymagane';
     }
-    if (!registerFormData.lastName) {
+    if (!registerFormData.last_name) {
       errors.lastName = 'Nazwisko jest wymagane';
     }
     if (!registerFormData.email) {
@@ -60,13 +60,13 @@ function RegisterPage() {
 
     if (Object.keys(errors).length === 0) {
       if (isLoggedIn) {
-        console.log('User is already logged in:', currentUser);
+        console.log('User is already logged in:', user);
       } else {
-        const registrationResult = registerUser({
+        const registrationResult = register({
           email: registerFormData.email,
           password: registerFormData.password,
           name: registerFormData.name,
-          lastName: registerFormData.lastName,
+          last_name: registerFormData.last_name,
         });
         if (registrationResult) {
           console.log('User registered successfully:', registerFormData);
@@ -149,18 +149,18 @@ function RegisterPage() {
               )}
               <input
                 type="text"
-                name="lastName"
-                value={registerFormData.lastName}
+                name="last_name"
+                value={registerFormData.last_name}
                 onChange={handleChange}
                 className="mt-1 block w-full border rounded-md px-3 py-2 hover:bg-gray-50 focus:bg-white"
                 onFocus={() => setLastNameFocus(true)} // send true if lastName is not empty
                 onBlur={() =>
-                  nameInputOnBlur(registerFormData.lastName, setLastNameFocus, 'lastName')
+                  nameInputOnBlur(registerFormData.last_name, setLastNameFocus, 'lastName')
                 } // send false if lastName is empty
                 placeholder={lastNameFocus ? '' : 'Nazwisko'}
               />
-              {formErrors.lastName === '' ? null : (
-                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.lastName}</p>
+              {formErrors.last_name === '' ? null : (
+                <p className="text-red-500 text-sm pl-1 mt-1">{formErrors.last_name}</p>
               )}
             </div>
 

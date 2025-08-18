@@ -4,14 +4,14 @@ import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 function ProfilePage() {
-  const { isLoggedIn, currentUser } = useAuth();
+  const { isLoggedIn, user } = useAuth();
 
   if (isLoggedIn) {
     return (
       <section className="pt-10 bg-gray-50 min-h-screen px-4 pb-20">
         <div className="max-w-6xl mx-auto bg-white rounded-md shadow flex">
           <aside className="w-1/4 border-r p-6 space-y-4">
-            <h2 className="text-xl font-semibold mb-4">Witaj, {currentUser.name}</h2>
+            <h2 className="text-xl font-semibold mb-4">Witaj, {user.name}</h2>
             <nav className="py-1">
               <NavLink
                 to="/orders"

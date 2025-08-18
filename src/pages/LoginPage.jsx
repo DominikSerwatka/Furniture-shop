@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-  const { currentUser, loginUser, isLoggedIn } = useAuth();
+  const { user, isLoggedIn, login } = useAuth();
 
   const navigate = useNavigate();
 
@@ -51,14 +51,13 @@ function LoginPage() {
     console.log('Validation errors: ', errors);
     if (Object.keys(errors).length === 0) {
       if (isLoggedIn) {
-        console.log('User is already logged in: ', currentUser);
+        console.log('User is already logged in: ', user);
+        navigate('/profile');
+        return;
       }
-      const loginResult = loginUser({
-        email: loginFormData.email,
-        password: loginFormData.password,
-      });
+      const loginResult = login(loginFormData.email, loginFormData.password);
       if (loginResult) {
-        console.log('User logged in successfully:', currentUser);
+        console.log('User logged in successfully:', user);
         navigate('/profile');
       } else {
         console.log('Invalid email or password');

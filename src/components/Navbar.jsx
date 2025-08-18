@@ -12,7 +12,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   const [isHovered, setIsHovered] = useState(false);
-  const { loggOutUser, isLoggedIn } = useAuth();
+  const { logout, isLoggedIn } = useAuth();
 
   return (
     <>
@@ -83,7 +83,7 @@ function Navbar() {
                           role="menuitem"
                           tabIndex="-1"
                           id="menu-item-2"
-                          onClick={() => loggOutUser()}
+                          onClick={() => logout()}
                         >
                           Wylogowanie
                         </button>

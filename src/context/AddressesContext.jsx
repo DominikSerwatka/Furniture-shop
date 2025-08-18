@@ -6,11 +6,11 @@ import { useAuth } from './AuthContext';
 const AddressesContext = createContext();
 
 function AddressesProvider({ children }) {
-  const { isLoggedIn, currentUser } = useAuth();
+  const { user, isLoggedIn } = useAuth();
 
   const addressesKey = useMemo(
-    () => (isLoggedIn ? `addresses_${currentUser.email}` : 'addresses'),
-    [isLoggedIn, currentUser?.email]
+    () => (isLoggedIn ? `addresses_${user.email}` : 'addresses'),
+    [isLoggedIn, user?.email]
   );
 
   const loadAddresses = (key) => {

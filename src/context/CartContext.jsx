@@ -6,11 +6,11 @@ import { useAuth } from './AuthContext';
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const { isLoggedIn, currentUser } = useAuth();
+  const { user, isLoggedIn } = useAuth();
 
   const cartStorageKey = useMemo(
-    () => (isLoggedIn ? `cart_${currentUser.email}` : 'cart_guest'),
-    [isLoggedIn, currentUser?.email]
+    () => (isLoggedIn ? `cart_${user.email}` : 'cart_guest'),
+    [isLoggedIn, user?.email]
   );
 
   const loadCart = (key) => {

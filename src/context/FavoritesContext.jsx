@@ -7,11 +7,11 @@ import { useAuth } from './AuthContext';
 const FavoriteContext = createContext();
 
 function FavoritesProvider({ children }) {
-  const { isLoggedIn, currentUser } = useAuth();
+  const { user, isLoggedIn } = useAuth();
 
   const storageKey = useMemo(
-    () => (isLoggedIn ? `favorites_${currentUser.email}` : 'favorites_guest'),
-    [isLoggedIn, currentUser?.email]
+    () => (isLoggedIn ? `favorites_${user.email}` : 'favorites_guest'),
+    [isLoggedIn, user?.email]
   );
 
   const loadFavorites = (key) => {

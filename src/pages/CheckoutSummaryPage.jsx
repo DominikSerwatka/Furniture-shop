@@ -24,7 +24,10 @@ function CheckoutSummaryPage() {
               {userData.street} {userData.houseNumber}, {userData.postalCode} {userData.city}
             </p>
           </div>
-          <Link to="/checkout/orderring" className="border p-2 rounded-md hover:bg-gray-100 border-black">
+          <Link
+            to="/checkout/orderring"
+            className="border p-2 rounded-md hover:bg-gray-100 border-black"
+          >
             Zmień
           </Link>
         </div>
@@ -36,7 +39,10 @@ function CheckoutSummaryPage() {
             <h3 className="text-lg font-semibold mb-2">Dostawa</h3>
             <p>{deliveryMethod === 'kurier' ? 'Kurier (15 zł)' : 'Paczkomat (10 zł)'}</p>
           </div>
-          <Link to="/checkout/orderring" className="border p-2 rounded-md hover:bg-gray-100 border-black">
+          <Link
+            to="/checkout/orderring"
+            className="border p-2 rounded-md hover:bg-gray-100 border-black"
+          >
             Zmień
           </Link>
         </div>
@@ -48,7 +54,10 @@ function CheckoutSummaryPage() {
             <h3 className="text-lg font-semibold mb-2">Płatność</h3>
             <p>{paymentMethod === 'blik' ? 'BLIK' : paymentMethod}</p>
           </div>
-          <Link to="/checkout/orderring" className="border p-2 rounded-md hover:bg-gray-100 border-black">
+          <Link
+            to="/checkout/orderring"
+            className="border p-2 rounded-md hover:bg-gray-100 border-black"
+          >
             Zmień
           </Link>
         </div>

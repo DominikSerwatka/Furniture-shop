@@ -6,66 +6,118 @@ import PropTypes from 'prop-types';
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [users, setUsers] = useState(() => {
-    const stored = localStorage.getItem('users');
-    return stored ? JSON.parse(stored) : [];
-  });
-
-  const [currentUser, setCurrentUser] = useState(() => {
-    const stored = localStorage.getItem('currentUser');
-    return stored ? JSON.parse(stored) : null;
-  });
+  const [accessToken, setAccessToken] = useState(() => localStorage.getItem('accessToken'));
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem('users', JSON.stringify(users));
-  }, [users]);
-
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem('currentUser');
+    if (accessToken) {
+      fetchUser();
     }
-  }, [currentUser]);
+  }, [accessToken]);
 
-  const loginUser = ({ email, password }) => {
-    const user = users.find((u) => u.email === email && u.password === password);
-    if (user) {
-      setCurrentUser(user);
-      console.log('User logged in:', user);
-      return true;
-    } else {
-      console.log('Invalid email or password');
-      return false;
-    }
-  };
+  const refreshToken = async () => {
+    const response = await fetch('api/auth/refresh', {
+      method: 'POST',
+      credentials: 'include',
+    });
+    if (!response.ok) return false;
 
-  const loggOutUser = (user) => {
-    console.log('User logged out:', user);
-    setCurrentUser(null);
-  };
-
-  const registerUser = (newUser) => {
-    const existingUser = users.some((u) => u.email === newUser.email);
-    if (existingUser) {
-      console.log('User already exists with this email');
-      return false;
-    }
-    setUsers((prevUsers) => [...prevUsers, newUser]);
-    setCurrentUser(newUser);
-    console.log('User registered:', newUser);
+    const data = await response.json();
+    setAccessToken(data.access_token);
+    localStorage.setItem('accessToken', data.access_token);
     return true;
+  };
+
+  const fetchUser = async (retry = true) => {
+    try {
+      const response = await fetch('/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      console.log(
+        'Fetching user with access token:',
+        accessToken,
+        'response status:',
+        response.status
+      );
+
+      if (!response.ok) {
+        if (response.status === 401 && retry) {
+          console.log('Access token invalid, trying refresh...');
+          const refreshed = await refreshToken();
+          if (!refreshed) {
+            throw new Error('Failed to refresh token');
+          }
+          return await fetchUser(false);
+        }
+        throw new Error(`Failed to fetch user: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setUser(data);
+      console.log('User fetched:', data);
+      return data;
+    } catch (error) {
+      console.error(error);
+      logout();
+      return null;
+    }
+  };
+
+  const login = async (email, password) => {
+    const formData = new URLSearchParams();
+    formData.append('username', email);
+    formData.append('password', password);
+    const response = await fetch('api/auth/token', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    });
+
+    if (!response.ok) return false;
+
+    const data = await response.json();
+
+    setAccessToken(data.access_token);
+    localStorage.setItem('accessToken', data.access_token);
+    return true;
+  };
+
+  const register = async (registerData) => {
+    console.log('Registering user with data:', registerData);
+    const response = await fetch('api/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(registerData),
+    });
+
+    if (!response.ok) return false;
+    return true;
+  };
+
+  const logout = async () => {
+    await fetch('api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    setAccessToken(null);
+    setUser(null);
+    localStorage.removeItem('accessToken');
   };
 
   return (
     <AuthContext.Provider
       value={{
-        users,
-        currentUser,
-        isLoggedIn: !!currentUser,
-        loginUser,
-        loggOutUser,
-        registerUser,
+        user,
+        isLoggedIn: !!user,
+        login,
+        logout,
+        register,
       }}
     >
       {children}
