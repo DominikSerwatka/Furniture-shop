@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from './AuthContext';
@@ -6,36 +6,129 @@ import { useAuth } from './AuthContext';
 const AddressesContext = createContext();
 
 function AddressesProvider({ children }) {
-  const { user, isLoggedIn } = useAuth();
+  const { user, isLoggedIn, refreshToken } = useAuth();
 
-  const addressesKey = useMemo(
-    () => (isLoggedIn ? `addresses_${user.email}` : 'addresses'),
-    [isLoggedIn, user?.email]
-  );
-
-  const loadAddresses = (key) => {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : [];
+  const getAddresses = async (retry = true) => {
+    const response = await fetch('/api/addresses/', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    console.log('Access token from addresses:', localStorage.getItem('accessToken'));
+    if (!response.ok) {
+      if (response.status === 401 && retry) {
+        console.log('Access token invalid, trying refresh...');
+        const refreshed = await refreshToken();
+        if (refreshed) {
+          return await getAddresses(false);
+        }
+        throw new Error('Failed to fetch addresses');
+      }
+      const refreshed = await refreshToken();
+      if (refreshed) {
+        return getAddresses(false);
+      }
+      throw new Error('Failed to fetch addresses');
+    }
+    const data = await response.json();
+    console.log('Addresses fetched:', data);
+    return data;
   };
 
-  const [addresses, setAddresses] = useState(() => {
-    return loadAddresses(addressesKey);
-  });
+  const [addresses, setAddresses] = useState([]);
 
   useEffect(() => {
-    setAddresses(loadAddresses(addressesKey));
-  }, [addressesKey]);
+    fetchAddresses();
+  }, [user, isLoggedIn]);
 
-  useEffect(() => {
-    localStorage.setItem(addressesKey, JSON.stringify(addresses));
-  }, [addresses, addressesKey]);
+  const fetchAddresses = async () => {
+    if (isLoggedIn) {
+      try {
+        const addressData = await getAddresses();
+        setAddresses(addressData);
+      } catch (error) {
+        console.error('Failed to load addresses:', error);
+        setAddresses([]);
+      }
+    }
+  };
 
-  const updateAddresses = (newAddresses) => {
-    setAddresses(newAddresses);
+  const addAddress = async (address, retry = true) => {
+    console.log('Adding address:', addAddress);
+    const response = await fetch('api/addresses/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify(address),
+    });
+    if (!response.ok) {
+      if (response.status == 401 && retry) {
+        console.log('Access token invalid, trying refresh...');
+        const refreshed = await refreshToken();
+        if (refreshed) {
+          return await addAddress(address, false);
+        }
+        throw new Error('Failed to add new address');
+      }
+      throw new Error('Failed to add new address');
+    }
+    fetchAddresses();
+    return true;
+  };
+
+  const deleteAddress = async (id, retry = true) => {
+    const response = await fetch(`api/addresses/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    if (!response.ok) {
+      if (response.status === 401 && retry) {
+        console.log('Access token invalid, trying refresh...');
+        const refreshed = await refreshToken();
+        if (refreshed) {
+          return await deleteAddress(id, false);
+        }
+        throw new Error('Failed to delete address');
+      }
+      throw new Error('Failed to delete address');
+    }
+    fetchAddresses();
+    return true;
+  };
+
+  const updateAddress = async (id, address, retry = true) => {
+    console.log('Updating address:', id);
+    const response = await fetch(`api/addresses/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify(address),
+    });
+
+    if (!response.ok) {
+      if (response.status === 401 && retry) {
+        console.log('Access token invalid, trying refresh...');
+        const refreshed = await refreshToken();
+        if (refreshed) {
+          return await updateAddress(id, address, false);
+        }
+        throw new Error('Failed to update address');
+      }
+      throw new Error('Failed to update address');
+    }
+    fetchAddresses();
+    return true;
   };
 
   return (
-    <AddressesContext.Provider value={{ addresses, updateAddresses }}>
+    <AddressesContext.Provider value={{ addresses, addAddress, deleteAddress, updateAddress }}>
       {children}
     </AddressesContext.Provider>
   );

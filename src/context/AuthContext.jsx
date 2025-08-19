@@ -20,6 +20,7 @@ function AuthProvider({ children }) {
       method: 'POST',
       credentials: 'include',
     });
+    console.log('Refreshing token, response status:', response.status);
     if (!response.ok) return false;
 
     const data = await response.json();
@@ -118,6 +119,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
+        refreshToken,
       }}
     >
       {children}

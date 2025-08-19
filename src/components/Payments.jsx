@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAddresses } from '../context/AddressesContext';
 
 function Payments() {
-  const { addresses, updateAddresses } = useAddresses();
+  const { addresses, addAddress, deleteAddress, updateAddress } = useAddresses();
 
   const [nameFocus, setNameFocus] = useState(false);
   const [lastNameFocus, setLastNameFocus] = useState(false);
@@ -32,9 +32,19 @@ function Payments() {
   const [currentAddress, setCurrentAddress] = useState(null);
 
   const openModal = (addressId) => {
-    const address = addresses.find((addr) => addr.id === addressId);
+    const address = addresses?.find((addr) => addr.id === addressId);
     if (address) {
-      setCurrentAddress(address);
+      setCurrentAddress({
+        id: address.id,
+        name: address.name,
+        lastName: address.last_name,
+        street: address.street,
+        houseNumber: address.house_number,
+        postalCode: address.postal_code,
+        city: address.city,
+        phoneNumber: address.phone_number,
+        email: address.email,
+      });
     } else {
       setCurrentAddress({
         id: 0,
@@ -65,59 +75,73 @@ function Payments() {
   };
 
   const submitAddress = () => {
-    const maxId = addresses.reduce((max, addr) => Math.max(max, addr.id), 0);
     if (currentAddress.id === 0) {
-      var newAddresses = [...addresses, { ...currentAddress, id: maxId + 1 }];
-      updateAddresses(newAddresses);
+      var newAddress = {
+        name: currentAddress.name,
+        last_name: currentAddress.lastName,
+        email: currentAddress.email,
+        phone_number: currentAddress.phoneNumber,
+        street: currentAddress.street,
+        house_number: currentAddress.houseNumber,
+        postal_code: currentAddress.postalCode,
+        city: currentAddress.city,
+      };
+      addAddress(newAddress);
     } else {
       console.log('Updating address with id:', currentAddress.id);
-      var updatedAddresses = addresses
-        .filter((p) => p.id !== currentAddress.id)
-        .concat(currentAddress)
-        .sort((a, b) => a.id - b.id);
-      updateAddresses(updatedAddresses);
+      var updatedAddress = {
+        name: currentAddress.name,
+        last_name: currentAddress.lastName,
+        email: currentAddress.email,
+        phone_number: currentAddress.phoneNumber,
+        street: currentAddress.street,
+        house_number: currentAddress.houseNumber,
+        postal_code: currentAddress.postalCode,
+        city: currentAddress.city,
+      };
+      updateAddress(currentAddress.id, updatedAddress);
     }
     closeModal();
   };
 
   const handleDelete = (id) => {
-    var newAddresses = addresses.filter((p) => p.id !== id).sort((a, b) => a.id - b.id);
-    updateAddresses(newAddresses);
+    deleteAddress(id);
   };
 
   return (
     <div>
       <h3 className="text-lg font-bold mb-4">Ustawienia Adressów i metody płatności</h3>
       <div className="grid grid-cols-3 gap-6">
-        {addresses.map((address) => (
-          <div key={address.id} className="bg-gray-100 p-3 rounded shadow">
-            <h4 className="font-semibold">
-              {address.name} {address.lastName}
-            </h4>
-            <p>
-              {address.street} {address.houseNumber}
-            </p>
-            <p>
-              {address.postalCode} {address.city}
-            </p>
-            <p>{address.phoneNumber}</p>
-            <p>{address.email}</p>
-            <div className="grid grid-cols-2 gap-6 px-6">
-              <button
-                onClick={() => openModal(address.id)}
-                className="mt-2 px-1 py-2 bg-gray-300 text-dark rounded"
-              >
-                Edytuj
-              </button>
-              <button
-                className="mt-2 px-1 py-2 bg-gray-300 text-dark rounded"
-                onClick={() => handleDelete(address.id)}
-              >
-                Usuń
-              </button>
+        {addresses &&
+          addresses.map((address) => (
+            <div key={address.id} className="bg-gray-100 p-3 rounded shadow">
+              <h4 className="font-semibold">
+                {address.name} {address.lastName}
+              </h4>
+              <p>
+                {address.street} {address.houseNumber}
+              </p>
+              <p>
+                {address.postalCode} {address.city}
+              </p>
+              <p>{address.phoneNumber}</p>
+              <p>{address.email}</p>
+              <div className="grid grid-cols-2 gap-6 px-6">
+                <button
+                  onClick={() => openModal(address.id)}
+                  className="mt-2 px-1 py-2 bg-gray-300 text-dark rounded"
+                >
+                  Edytuj
+                </button>
+                <button
+                  className="mt-2 px-1 py-2 bg-gray-300 text-dark rounded"
+                  onClick={() => handleDelete(address.id)}
+                >
+                  Usuń
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       <button
