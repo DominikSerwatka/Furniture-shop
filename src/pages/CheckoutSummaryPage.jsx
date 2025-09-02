@@ -1,12 +1,18 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCheckout } from '../context/CheckoutContext.jsx';
+import { useOrders } from '../context/OrdersContext.jsx';
 
 function CheckoutSummaryPage() {
-  const navigate = useNavigate();
 
   const { checkoutData } = useCheckout();
-  const { userData, deliveryMethod, paymentMethod } = checkoutData;
+
+  const { addOrder } = useOrders();
+  
+  const submitOrder = async () => {
+    console.log('Submitting order with data:', checkoutData);
+    await addOrder(checkoutData.order);
+  }
 
   return (
     <>
@@ -16,12 +22,12 @@ function CheckoutSummaryPage() {
           <div>
             <h3 className="text-lg font-semibold mb-2">Dane osobowe</h3>
             <p>
-              {userData.name} {userData.lastName}
+              {checkoutData.order.delivery_address_snapshot.name} {checkoutData.order.delivery_address_snapshot.last_name}
             </p>
-            <p>{userData.email}</p>
-            <p>{userData.phoneNumber}</p>
+            <p>{checkoutData.order.delivery_address_snapshot.email}</p>
+            <p>{checkoutData.order.delivery_address_snapshot.phone_number}</p>
             <p>
-              {userData.street} {userData.houseNumber}, {userData.postalCode} {userData.city}
+              {checkoutData.order.delivery_address_snapshot.street} {checkoutData.order.delivery_address_snapshot.house_number}, {checkoutData.order.delivery_address_snapshot.postal_code} {checkoutData.order.delivery_address_snapshot.city}
             </p>
           </div>
           <Link
@@ -37,7 +43,7 @@ function CheckoutSummaryPage() {
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-lg font-semibold mb-2">Dostawa</h3>
-            <p>{deliveryMethod === 'kurier' ? 'Kurier (15 zł)' : 'Paczkomat (10 zł)'}</p>
+            <p>{checkoutData.order.delivery_fee} delivery</p>
           </div>
           <Link
             to="/checkout/orderring"
@@ -52,7 +58,7 @@ function CheckoutSummaryPage() {
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-lg font-semibold mb-2">Płatność</h3>
-            <p>{paymentMethod === 'blik' ? 'BLIK' : paymentMethod}</p>
+            <p>{checkoutData.order.payment_method}</p>
           </div>
           <Link
             to="/checkout/orderring"
@@ -72,7 +78,7 @@ function CheckoutSummaryPage() {
         </Link>
 
         <button
-          onClick={() => navigate('/checkout/order')}
+          onClick={() => submitOrder()}
           type="submit"
           className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition"
         >

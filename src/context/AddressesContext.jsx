@@ -128,7 +128,7 @@ function AddressesProvider({ children }) {
   };
 
   return (
-    <AddressesContext.Provider value={{ addresses, addAddress, deleteAddress, updateAddress }}>
+    <AddressesContext.Provider value={{ addresses, getAddresses, addAddress, deleteAddress, updateAddress }}>
       {children}
     </AddressesContext.Provider>
   );

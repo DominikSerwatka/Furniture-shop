@@ -3,16 +3,35 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCheckout } from '../context/CheckoutContext.jsx';
 import { useAddresses } from '../context/AddressesContext.jsx';
+import { useCart } from '../context/CartContext.jsx';
 
 function CheckoutPage() {
   const navigate = useNavigate();
 
-  const { addresses, updateAddresses } = useAddresses();
+  const { addresses } = useAddresses();
 
-  const { setCheckoutData } = useCheckout();
+  const { setAndValidateCheckoutData, checkoutData } = useCheckout();
+
+  const { cart } = useCart();
 
   const [deliveryMethod, setDeliveryMethod] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
+
+  const choose_payment = (method) => {
+    if (method === paymentMethod) {
+      setPaymentMethod("");
+      return;
+    }
+    setPaymentMethod(method);
+  }
+
+  const choose_delivery = (method) => {
+    if (method === deliveryMethod) {
+      setDeliveryMethod("")
+      return;
+    }
+    setDeliveryMethod(method);
+  }
 
   const [nameFocus, setNameFocus] = useState(false);
   const [lastNameFocus, setLastNameFocus] = useState(false);
@@ -25,21 +44,33 @@ function CheckoutPage() {
 
   const onSubmitAction = () => {
     console.log(chooseAddress);
-    setCheckoutData(() => ({
-      userData: {
+
+    var address = {
         name: chooseAddress.name,
-        lastName: chooseAddress.lastName,
+        last_name: chooseAddress.last_name,
         email: chooseAddress.email,
-        phoneNumber: chooseAddress.phoneNumber,
+        phone_number: chooseAddress.phone_number,
         street: chooseAddress.street,
-        houseNumber: chooseAddress.houseNumber,
-        postalCode: chooseAddress.postalCode,
+        house_number: chooseAddress.house_number,
+        postal_code: chooseAddress.postal_code,
         city: chooseAddress.city,
-      },
-      deliveryMethod: deliveryMethod,
-      paymentMethod: paymentMethod,
-    }));
-    console.log('Checkout data submitted:');
+      };
+    var order_items = [...cart.map(item => ({
+        product_id: item.id,
+        qty: item.quantity,
+      }))]
+
+    var order = {
+        items: order_items,
+        delivery_address_snapshot: address,
+        delivery_address_id: chooseAddress.id,
+        delivery_fee: 10,
+        discount_total: 0,
+        payment_method: paymentMethod,
+      }
+    
+    console.log("Address:", address);
+    setAndValidateCheckoutData(address, order_items, order);
     navigate('/checkout/summary');
   };
 
@@ -77,7 +108,17 @@ function CheckoutPage() {
   const openAddressModal = (addressId) => {
     const address = addresses.find((addr) => addr.id === addressId);
     if (address) {
-      setCurrentAddress(address);
+      setCurrentAddress({
+        id: address.id,
+        name: address.name,
+        lastName: address.last_name,
+        street: address.street,
+        houseNumber: address.house_number,
+        postalCode: address.postal_code,
+        city: address.city,
+        phoneNumber: address.phone_number,
+        email: address.email,
+      });
     } else {
       setCurrentAddress({
         id: 0,
@@ -115,7 +156,7 @@ function CheckoutPage() {
     if (currentAddress.id === 0) {
       var newAddress = { ...currentAddress, id: maxId + 1 };
       var newAddresses = [...addresses, newAddress];
-      updateAddresses(newAddresses);
+      // updateAddresses(newAddresses);
 
       setAddressCandidate(newAddress);
       console.log(newAddress);
@@ -125,14 +166,14 @@ function CheckoutPage() {
         .filter((p) => p.id !== currentAddress.id)
         .concat(currentAddress)
         .sort((a, b) => a.id - b.id);
-      updateAddresses(updatedAddresses);
+      // updateAddresses(updatedAddresses);
     }
     closeNewAddressModal();
   };
 
   const handleDelete = (id) => {
     var newAddresses = addresses.filter((p) => p.id !== id).sort((a, b) => a.id - b.id);
-    updateAddresses(newAddresses);
+    // updateAddresses(newAddresses);
     if (addressCandidate?.id === id) {
       setAddressCandidate(addresses.length > 1 ? addresses[0] : null);
     }
@@ -195,7 +236,7 @@ function CheckoutPage() {
               name="deliveryMethod"
               value="kurier"
               checked={deliveryMethod === 'kurier'}
-              onChange={() => setDeliveryMethod('kurier')}
+              onClick={() => choose_delivery('kurier')}
             />
             <span className="ml-2">Kurier (15 zł)</span>
           </label>
@@ -207,7 +248,7 @@ function CheckoutPage() {
               name="deliveryMethod"
               value="paczkomat"
               checked={deliveryMethod === 'paczkomat'}
-              onChange={() => setDeliveryMethod('paczkomat')}
+              onClick={() => choose_delivery('paczkomat')}
             />
             <span className="ml-2">Paczkomat (10 zł)</span>
           </label>
@@ -222,7 +263,7 @@ function CheckoutPage() {
               name="paymentMethod"
               value="blik"
               checked={paymentMethod === 'blik'}
-              onChange={() => setPaymentMethod('blik')}
+              onClick={() => choose_payment('blik')}
             />
             <span className="ml-2">BLIK</span>
           </label>
