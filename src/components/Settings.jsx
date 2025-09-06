@@ -2,14 +2,14 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 
 function Settings() {
-  const { currentUser } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div>
       <h3 className="text-lg font-bold mb-4">Ustawienia konta</h3>
-      <p>Imię: {currentUser.name}</p>
-      <p>Nazwisko: {currentUser.lastName}</p>
-      <p>Email: {currentUser.email}</p>
+      <p>Imię: {user.name}</p>
+      <p>Nazwisko: {user.lastName}</p>
+      <p>Email: {user.email}</p>
     </div>
   );
 }
