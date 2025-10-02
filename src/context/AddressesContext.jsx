@@ -56,7 +56,7 @@ function AddressesProvider({ children }) {
 
   const addAddress = async (address, retry = true) => {
     console.log('Adding address:', addAddress);
-    const response = await fetch('api/addresses/', {
+    const response = await fetch('/api/addresses/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,12 +75,12 @@ function AddressesProvider({ children }) {
       }
       throw new Error('Failed to add new address');
     }
-    fetchAddresses();
+    await fetchAddresses();
     return true;
   };
 
   const deleteAddress = async (id, retry = true) => {
-    const response = await fetch(`api/addresses/${id}`, {
+    const response = await fetch(`/api/addresses/${id}/`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -97,13 +97,14 @@ function AddressesProvider({ children }) {
       }
       throw new Error('Failed to delete address');
     }
-    fetchAddresses();
+    await fetchAddresses();
     return true;
   };
 
   const updateAddress = async (id, address, retry = true) => {
     console.log('Updating address:', id);
-    const response = await fetch(`api/addresses/${id}`, {
+    console.log('Updating address access token', localStorage.getItem('accessToken'));
+    const response = await fetch(`/api/addresses/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -123,7 +124,7 @@ function AddressesProvider({ children }) {
       }
       throw new Error('Failed to update address');
     }
-    fetchAddresses();
+    await fetchAddresses();
     return true;
   };
 

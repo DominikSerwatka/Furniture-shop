@@ -16,7 +16,7 @@ function AuthProvider({ children }) {
   }, [accessToken]);
 
   const refreshToken = async () => {
-    const response = await fetch('api/auth/refresh', {
+    const response = await fetch('/api/auth/refresh', {
       method: 'POST',
       credentials: 'include',
     });
@@ -71,7 +71,7 @@ function AuthProvider({ children }) {
     const formData = new URLSearchParams();
     formData.append('username', email);
     formData.append('password', password);
-    const response = await fetch('api/auth/token', {
+    const response = await fetch('/api/auth/token', {
       method: 'POST',
       body: formData,
       credentials: 'include',
@@ -88,7 +88,7 @@ function AuthProvider({ children }) {
 
   const register = async (registerData) => {
     console.log('Registering user with data:', registerData);
-    const response = await fetch('api/auth', {
+    const response = await fetch('/api/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    await fetch('api/auth/logout', {
+    await fetch('/api/auth/logout', {
       method: 'POST',
       credentials: 'include',
     });

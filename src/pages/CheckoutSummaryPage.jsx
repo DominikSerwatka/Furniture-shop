@@ -1,17 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCheckout } from '../context/CheckoutContext.jsx';
 import { useOrders } from '../context/OrdersContext.jsx';
+import { useCart } from '../context/CartContext.jsx';
 
 function CheckoutSummaryPage() {
+
+  const navigate = useNavigate();
 
   const { checkoutData } = useCheckout();
 
   const { addOrder } = useOrders();
+
+  const { clearCart } = useCart();
   
   const submitOrder = async () => {
     console.log('Submitting order with data:', checkoutData);
     await addOrder(checkoutData.order);
+    clearCart();
+    navigate('/orders');
   }
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCheckout } from '../context/CheckoutContext.jsx';
@@ -8,7 +8,7 @@ import { useCart } from '../context/CartContext.jsx';
 function CheckoutPage() {
   const navigate = useNavigate();
 
-  const { addresses } = useAddresses();
+  const { addresses, addAddress, deleteAddress, updateAddress } = useAddresses();
 
   const { setAndValidateCheckoutData, checkoutData } = useCheckout();
 
@@ -81,6 +81,19 @@ function CheckoutPage() {
     return addresses.length > 0 ? addresses[0] : null;
   });
 
+  useEffect(() => {
+    if (addresses.length > 0 && !chooseAddress) {
+      setChooseAddress(addresses[0]);
+      return;
+    }
+
+    const fresh = addresses.find(address => address.id == chooseAddress.id)
+    if (fresh) {
+      setChooseAddress(fresh);
+    }
+
+  }, [addresses])
+
   const [currentAddress, setCurrentAddress] = useState({
     name: '',
     lastName: '',
@@ -150,36 +163,46 @@ function CheckoutPage() {
     setCityFocus(false);
   };
 
-  const submitNewAddress = () => {
+  const submitNewAddress = async () => {
     console.log('Submitting new address');
-    const maxId = addresses.reduce((max, addr) => Math.max(max, addr.id), 0);
     if (currentAddress.id === 0) {
-      var newAddress = { ...currentAddress, id: maxId + 1 };
-      var newAddresses = [...addresses, newAddress];
-      // updateAddresses(newAddresses);
-
-      setAddressCandidate(newAddress);
-      console.log(newAddress);
+      var newAddress = {
+        name: currentAddress.name,
+        last_name: currentAddress.lastName,
+        email: currentAddress.email,
+        phone_number: currentAddress.phoneNumber,
+        street: currentAddress.street,
+        house_number: currentAddress.houseNumber,
+        postal_code: currentAddress.postalCode,
+        city: currentAddress.city,
+      };
+      await addAddress(newAddress);
     } else {
       console.log('Updating address with id:', currentAddress.id);
-      var updatedAddresses = addresses
-        .filter((p) => p.id !== currentAddress.id)
-        .concat(currentAddress)
-        .sort((a, b) => a.id - b.id);
-      // updateAddresses(updatedAddresses);
+      var updatedAddress = {
+        name: currentAddress.name,
+        last_name: currentAddress.lastName,
+        email: currentAddress.email,
+        phone_number: currentAddress.phoneNumber,
+        street: currentAddress.street,
+        house_number: currentAddress.houseNumber,
+        postal_code: currentAddress.postalCode,
+        city: currentAddress.city,
+      };
+      await updateAddress(currentAddress.id, updatedAddress);
     }
     closeNewAddressModal();
   };
 
   const handleDelete = (id) => {
-    var newAddresses = addresses.filter((p) => p.id !== id).sort((a, b) => a.id - b.id);
-    // updateAddresses(newAddresses);
-    if (addressCandidate?.id === id) {
-      setAddressCandidate(addresses.length > 1 ? addresses[0] : null);
-    }
+    deleteAddress(id);
   };
 
   const [addressCandidate, setAddressCandidate] = useState(chooseAddress);
+
+  useEffect(() => {
+    setAddressCandidate(chooseAddress);
+  }, [chooseAddress]);
 
   const submitAddressModal = () => {
     setIsAddressesModalOpen(false);
@@ -236,6 +259,7 @@ function CheckoutPage() {
               name="deliveryMethod"
               value="kurier"
               checked={deliveryMethod === 'kurier'}
+              onChange={null}
               onClick={() => choose_delivery('kurier')}
             />
             <span className="ml-2">Kurier (15 zł)</span>
@@ -290,15 +314,6 @@ function CheckoutPage() {
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-md w-full max-w-md max-h-[80vh] overflow-y-auto">
               <h1 className="text-lg mb-4">Zapisane adresy</h1>
-              <div className="mb-4">
-                <button
-                  className="rounded border p-3 border-black hover:bg-gray-100 w-full "
-                  onClick={() => openAddressModal(0)}
-                  type="button"
-                >
-                  Dodaj nowy adres
-                </button>
-              </div>
               {addresses.map((address) => (
                 <div key={address.id} className="relative bg-gray-100 p-3 rounded shadow mb-4">
                   <h4 className="font-semibold">
@@ -335,6 +350,15 @@ function CheckoutPage() {
                   </div>
                 </div>
               ))}
+              <div className="mb-4">
+                <button
+                  className="rounded border p-3 border-black hover:bg-gray-100 w-full "
+                  onClick={() => openAddressModal(0)}
+                  type="button"
+                >
+                  Dodaj nowy adres
+                </button>
+              </div>
               <div className="flex justify-between mt-3">
                 <button
                   className="bg-black text-white rounded px-3 py-2 hover:bg-gray-300 order-1"

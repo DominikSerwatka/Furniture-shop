@@ -26,11 +26,13 @@ import CheckoutMainLayout from './layouts/CheckoutMainLayout';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutSummaryPage from './pages/CheckoutSummaryPage';
 import productsLoader from './loaders/productsLoader';
+import StockPage from './pages/StockPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<MainLayout />}>
+        <Route path="/stock" element={<StockPage />} />
         <Route index element={<HomePage />} loader={productsLoader} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductPage />} loader={productLoader} />
