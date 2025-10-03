@@ -1,28 +1,33 @@
-import { defineConfig } from 'vite'
+/* eslint-env node */
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import { loadEnv } from 'vite';
 
-// https://vite.dev/config/
-const API = loadEnv('', "./").VITE_API_URL;
+export default ({ mode }) => {
+  const env = loadEnv(mode, __dirname, '')   // __dirname zamiast process.cwd()
+  const API = env.VITE_API_URL || 'http://localhost:8000'
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 3000,
-    allowedHosts: [
-        'lucas-hose-drinks-fog.trycloudflare.com'
-      ],
-    proxy: {
-      '/api': {
-        target: API,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    } 
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.js'
-  }
-});
+  const isDev = mode === 'development'
+
+  return defineConfig({
+    plugins: [react()],
+    server: isDev
+      ? {
+          host: true,
+          port: 3000,
+          allowedHosts: ['.trycloudflare.com'],
+          proxy: {
+            '/api': {
+              target: API,
+              changeOrigin: true,
+              rewrite: (p) => p.replace(/^\/api/, ''),
+            },
+          },
+        }
+      : undefined,
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test/setup.js',
+    },
+  })
+}

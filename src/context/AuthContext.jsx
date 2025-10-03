@@ -9,6 +9,11 @@ function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(() => localStorage.getItem('accessToken'));
   const [user, setUser] = useState(null);
 
+  const API = import.meta.env.VITE_API_URL
+
+  // wariant „uniwersalny”: jeśli jest API w env to użyj, inaczej zostań przy /api (dev)
+  const base = API || '/api'
+
   useEffect(() => {
     if (accessToken) {
       fetchUser();
@@ -16,7 +21,7 @@ function AuthProvider({ children }) {
   }, [accessToken]);
 
   const refreshToken = async () => {
-    const response = await fetch('/api/auth/refresh', {
+    const response = await fetch(`${base}/auth/refresh`, {
       method: 'POST',
       credentials: 'include',
     });
@@ -31,7 +36,7 @@ function AuthProvider({ children }) {
 
   const fetchUser = async (retry = true) => {
     try {
-      const response = await fetch('/api/users/me', {
+      const response = await fetch(`${base}/users/me`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -71,7 +76,7 @@ function AuthProvider({ children }) {
     const formData = new URLSearchParams();
     formData.append('username', email);
     formData.append('password', password);
-    const response = await fetch('/api/auth/token', {
+    const response = await fetch(`${base}/auth/token`, {
       method: 'POST',
       body: formData,
       credentials: 'include',
@@ -88,7 +93,7 @@ function AuthProvider({ children }) {
 
   const register = async (registerData) => {
     console.log('Registering user with data:', registerData);
-    const response = await fetch('/api/auth', {
+    const response = await fetch(`${base}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +106,7 @@ function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    await fetch('/api/auth/logout', {
+    await fetch(`${base}/auth/logout`, {
       method: 'POST',
       credentials: 'include',
     });
