@@ -14,15 +14,15 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
       <CartProvider>
-        <AddressesProvider>
-          <OrdersProvider>
+        {/* <AddressesProvider>
+          <OrdersProvider> */}
             <CheckoutProvider>
             <FavoritesProvider>
               <App />
             </FavoritesProvider>
           </CheckoutProvider>
-          </OrdersProvider>
-        </AddressesProvider>
+          {/* </OrdersProvider>
+        </AddressesProvider> */}
       </CartProvider>
     </AuthProvider>
   </StrictMode>
