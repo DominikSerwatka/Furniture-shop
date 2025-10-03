@@ -76,6 +76,7 @@ function AuthProvider({ children }) {
     const formData = new URLSearchParams();
     formData.append('username', email);
     formData.append('password', password);
+    console.log(base)
     const response = await fetch(`${base}/auth/token`, {
       method: 'POST',
       body: formData,

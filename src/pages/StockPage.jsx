@@ -162,7 +162,14 @@ function StockPage() {
                       </tr>
                     </thead>
                     <tbody className="align-top">
-                      {entry.transactions.map((t, k) => (
+                    {entry.transactions.map((t, k) => {
+                      // klasa koloru zależna od typu transakcji
+                      const colorClass =
+                        t.side?.toUpperCase() === "SELL"
+                          ? "text-red-600 font-semibold"
+                          : "text-green-600 font-semibold";
+
+                      return (
                         <tr key={k} className="border-t border-gray-200">
                           <td className="py-2 pr-3">{t.date}</td>
                           <td className="py-2 pr-3">{t.owner_name}</td>
@@ -174,10 +181,12 @@ function StockPage() {
                           <td className="py-2 pr-3 text-right">{t.price_per_share}</td>
                           <td className="py-2 pr-3 text-right">{t.shares_after}</td>
                           <td className="py-2 pr-3 text-right">{t.shares_before}</td>
-                          <td className="py-2">{t.side}</td>
+                          {/* strona transakcji kolorowana */}
+                          <td className={`py-2 ${colorClass}`}>{t.side}</td>
                         </tr>
-                      ))}
-                    </tbody>
+                      );
+                    })}
+                  </tbody>
                   </table>
                 </div>
               ) : (
