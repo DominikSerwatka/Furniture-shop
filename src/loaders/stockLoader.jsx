@@ -1,8 +1,6 @@
 import { useAuth } from '../context/AuthContext';
 
-export const stockLoader = async (ticker, number = 1, retry = true) => {
-
-  const { refreshToken } = useAuth();
+export const stockLoader = async (ticker, number = 1, retry = true, refreshFn) => {
 
   const API = import.meta.env.VITE_API_URL;
   const base = API || '/api';
@@ -32,7 +30,7 @@ export const stockLoader = async (ticker, number = 1, retry = true) => {
   // Obsługa 401 -> spróbuj odświeżyć token i ponów 1 raz
   if (res.status === 401 && retry) {
     console.log('Access token invalid, trying refresh...');
-    const ok = await refreshToken();
+    const ok = await refreshFn();
     if (ok) {
       return stockLoader(ticker, n, false);
     }

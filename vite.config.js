@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default ({ mode }) => {
   const env = loadEnv(mode, __dirname, '')   // __dirname zamiast process.cwd()
   const API = env.VITE_API_URL || 'http://localhost:8000'
+  // const API = 'https://reserved-yes-multimedia-dealt.trycloudflare.com' 
 
   const isDev = mode === 'development'
 

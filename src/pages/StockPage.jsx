@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { stockLoader } from "../loaders/stockLoader";
 
 function StockPage() {
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, refreshToken } = useAuth();
   const [ticker, setTicker] = useState("");
   const [quantity, setQuantity] = useState("");
   const [data, setData] = useState(null);
@@ -26,7 +26,7 @@ function StockPage() {
     }
     try {
       setLoading(true);
-      const resp = await stockLoader(t, q);
+      const resp = await stockLoader(t, q, refreshToken);
       setData(resp);
     } catch (err) {
       setError(err.message || "Nie udało się pobrać danych");
