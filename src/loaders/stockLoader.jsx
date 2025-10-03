@@ -1,10 +1,10 @@
-export const stockLoader = async (ticker) => {
+export const stockLoader = async (ticker, number) => {
   if (!ticker || typeof ticker !== "string") throw new Error("Brak tickera");
 
   const headers = {
     "Content-Type": "application/json",
   };
-  const res = await fetch(`/api/alignment_ratio/${ticker}`, {
+  const res = await fetch(`/api/alignment_ratio/${ticker}/${number}`, {
     method: "GET",
     headers
   });

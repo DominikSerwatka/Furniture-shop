@@ -32,28 +32,28 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<MainLayout />}>
-        <Route path="/stock" element={<StockPage />} />
-        <Route index element={<HomePage />} loader={productsLoader} />
-        <Route path="/products" element={<ProductsPage />} />
+        {/* <Route path="/stock" element={<StockPage />} /> */}
+        <Route index element={<StockPage />}/>
+        {/* <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductPage />} loader={productLoader} />
         <Route path="/shop-cart" element={<ShopCartPage />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} /> */}
+        {/* <Route path="/register" element={<RegisterPage />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route element={<ProfilePage />}>
           <Route path="/orders" element={<Orders />} />
           <Route path="/returns" element={<Returns />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/payments" element={<Payments />} />
+          {/* <Route path="/payments" element={<Payments />} /> */}
           <Route path="/opinions" element={<Opinions />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
-      <Route element={<CheckoutMainLayout />}>
+      {/* <Route element={<CheckoutMainLayout />}>
         <Route path="/checkout/orderring" element={<CheckoutPage />} />
         <Route path="/checkout/summary" element={<CheckoutSummaryPage />} />
-      </Route>
+      </Route> */}
     </>
   )
 );

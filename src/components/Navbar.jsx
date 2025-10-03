@@ -22,7 +22,7 @@ function Navbar() {
           <div className="flex h-20 items-center justify-between">
             <div>
               <Link className="flex flex-shrink-0 items-center mr-4" to="/">
-                <span className="hidden md:block text-black text-2xl font-bold ml-2">Meble</span>
+                <span className="hidden md:block text-black text-2xl font-bold ml-2">Kuba_the_Trader_King</span>
               </Link>
             </div>
 
@@ -33,18 +33,18 @@ function Navbar() {
               >
                 Home
               </Link>
-              <Link
+              {/* <Link
                 to="/products"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
               >
                 Produkty
-              </Link>
-              <Link
+              </Link> */}
+              {/* <Link
                 to="/gallery"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
               >
                 Galeria
-              </Link>
+              </Link> */}
               <Link
                 to="/about"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
@@ -108,7 +108,7 @@ function Navbar() {
                         >
                           Logowanie
                         </Link>
-                        <Link
+                        {/* <Link
                           to="register"
                           className="block px-4 py-2 text-black hover:bg-gray-900 hover:text-white rounded-md"
                           role="menuitem"
@@ -116,7 +116,7 @@ function Navbar() {
                           id="menu-item-2"
                         >
                           Rejestracja
-                        </Link>
+                        </Link> */}
                       </>
                     )}
                   </div>
@@ -135,7 +135,7 @@ function Navbar() {
               >
                 <i className="fa-regular fa-heart"></i>
               </Link>
-              <Link
+              {/* <Link
                 to="/shop-cart"
                 className="text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 relative"
               >
@@ -145,7 +145,7 @@ function Navbar() {
                     {cartCount}
                   </span>
                 )}
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
