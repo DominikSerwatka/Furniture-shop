@@ -22,7 +22,7 @@ export const stockLoader = async (ticker, number = 1, retry = true) => {
     res = await fetch(`${base}/alignment_ratio/${t}/${n}`, {
       method: 'GET',
       headers,
-      // credentials: 'include', // ← odkomentuj tylko jeśli logujesz przez cookies HTTP-only
+      credentials: 'include', // ← odkomentuj tylko jeśli logujesz przez cookies HTTP-only
     });
   } catch (e) {
     console.error('Network error while fetching alignment_ratio:', e);
